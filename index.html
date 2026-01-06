@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kartik Dubey | Backend Developer</title>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./image2.PNG">
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="logo">KD<span>.</span></div>
+      <button id="themeToggle" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-wrapper">
+
+      <!-- LEFT -->
+      <div class="hero-content">
+        <h1>Hi, I'm <span>Kartik Dubey</span></h1>
+        <p class="availability-badge">
+          🟢 Open to Internships & Entry-Level Roles (2026)
+        </p>
+
+        <p class="subtitle">
+          <span class="typing-box">
+            <span id="typing"></span>
+          </span>
+        </p>
+
+        <p class="description">
+          Final-year B.Tech Computer Engineering student (2026 batch)
+          focused on scalable backend systems, automation, and GenAI.
+        </p>
+
+        <div class="cta">
+          <a href="#projects" class="btn">View Projects</a>
+          <a href="./Resume.pdf" class="btn secondary" download>Download Resume</a>
+          <a href="#contact" class="btn secondary">Contact Me</a>
+
+        </div>
+      </div>
+
+
+      <!-- RIGHT -->
+<div class="hero-visual">
+
+  <!-- BACKGROUND CIRCLE -->
+  <div class="hero-bg"></div>
+
+  <!-- GEOMETRIC DOODLES (BEHIND IMAGE) -->
+  <div class="hero-doodles">
+
+    <!-- CIRCLE -->
+    <svg class="doodle-svg circle" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" />
+    </svg>
+
+    <!-- WAVE -->
+    <svg class="doodle-svg wave" viewBox="0 0 120 60">
+      <path d="M0 30 C20 10, 40 50, 60 30 C80 10, 100 50, 120 30" />
+    </svg>
+
+    <!-- STAR -->
+    <svg class="doodle-svg star" viewBox="0 0 100 100">
+      <path d="M50 5 L60 40 L95 50 L60 60 L50 95 L40 60 L5 50 L40 40 Z" />
+    </svg>
+
+    <!-- PLANE / ARROW -->
+    <svg class="doodle-svg plane" viewBox="0 0 100 60">
+      <path d="M0 30 L100 30 M70 10 L100 30 L70 50" />
+    </svg>
+
+  </div>
+
+  <!-- IMAGE -->
+  <img src="image.png" alt="Kartik Dubey" class="hero-img" />
+</div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="projects-section">
+    
+    <h2 class="section-title">Projects</h2>
+        
+    <div class="projects-wrapper">
+      
+       <!-- LEFT ARROW -->
+      <button class="project-scroll-btn left" onclick="scrollProjects(-1)">
+        &#10094;
+      </button>
+
+      <div class="projects-container" id="projectsScroll">
+
+        <!-- PROJECT 1 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>JNPA Internship Letter Generator</h3>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>PDF</span>
+              </div>
+              <p>
+                Automated system to generate, preview, and download official internship
+                letters with dynamic student data and proper formatting.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/JNPA-Internship-letter-Generator" target="_blank"
+                class="btn">GitHub Repo</a>
+              <a href="https://web-production-8a80.up.railway.app/" target="_blank" class="btn secondary">Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 2 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>URL–QR Suite</h3>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>HTML</span>
+                <span>CSS</span>
+              </div>
+              <p>
+                Web utility that shortens URLs and generates QR codes instantly
+                with a clean, user-friendly interface.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/url-qr-suite" target="_blank" class="btn">GitHub Repo</a>
+              <a href="https://kartik915.pythonanywhere.com/" target="_blank" class="btn secondary">Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 3 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>Interactive Streamlit Dashboard</h3>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Streamlit</span>
+              </div>
+              <p>
+                Data-driven dashboard built using Streamlit to visualize insights
+                through charts, filters, and real-time updates.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/Streamlit-Dashboard" target="_blank" class="btn">GitHub Repo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 4 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>Real-Time Log Monitoring System</h3>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>WebSocket</span>
+              </div>
+              <p>
+                Scalable log monitoring system inspired by BrowserStack infrastructure,
+                enabling real-time log streaming and live analysis.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/Log-monitoring-BrowserStack" target="_blank" class="btn">GitHub
+                Repo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 5 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>RasoiRescue – Food Management Platform</h3>
+              <div class="tech-stack">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>PHP</span>
+              </div>
+              <p>
+                Platform focused on reducing food waste by connecting surplus food
+                sources with those in need through a simple web interface.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/RasoiRescue" target="_blank" class="btn">GitHub Repo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 6 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>React Weather App</h3>
+              <div class="tech-stack">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>Javascript</span>
+                <span>Shell</span>
+              </div>
+              <p>
+                Responsive weather application built with React that fetches and
+                displays real-time weather data based on user location.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/react-weather-app" target="_blank" class="btn">GitHub Repo</a>
+              <a href="https://kartik-react-weather-app.vercel.app/" target="_blank" class="btn secondary">Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 7 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>SuperChat – Real-Time Messaging App</h3>
+              <div class="tech-stack">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>Javascript</span>
+                <span>Shell</span>
+              </div>
+              <p>
+                Real-time chat application with instant message delivery,
+                user authentication, and modern UI interactions.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/superchat" target="_blank" class="btn">GitHub Repo</a>
+              <a href="https://superchat-roan.vercel.app/login" target="_blank" class="btn secondary">Live Demo</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 8 -->
+        <div class="project-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3>Real-Time Motion Detector</h3>
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>OpenCV</span>   
+              </div>
+              <p>
+                Real-time motion detection system using Python and OpenCV that
+                highlights movement from live webcam video.
+              </p>
+            </div>
+            <div class="card-back">
+              <h3>Project Links</h3>
+              <a href="https://github.com/Kartik915d/Real-Time-Motion-Detector" target="_blank" class="btn">GitHub
+                Repo</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <button class="project-scroll-btn right" onclick="scrollProjects(1)">
+        &#10095;
+      </button>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="contact-subtitle">
+      Have a project, internship opportunity, or just want to connect?
+      I’d love to hear from you.
+    </p>
+
+    <div class="contact-grid">
+
+      <a href="mailto:Kartikdubey03@gmail.com" class="contact-card">
+        <span class="contact-icon">✉️</span>
+        <h3>Email</h3>
+        <p>Kartikdubey03@gmail.com</p>
+      </a>
+
+      <a href="https://github.com/Kartik915d" target="_blank" class="contact-card">
+        <span class="contact-icon">💻</span>
+        <h3>GitHub</h3>
+        <p>github.com/Kartik915d</p>
+      </a>
+
+      <a href="https://linkedin.com/in/kartik-dubey915" target="_blank" class="contact-card">
+        <span class="contact-icon">🔗</span>
+        <h3>LinkedIn</h3>
+        <p>Connect professionally</p>
+      </a>
+
+      <a href="tel:+919XXXXXXXXX" class="contact-card">
+        <span class="contact-icon">📞</span>
+        <h3>Phone</h3>
+        <p>+91 9326028208</p>
+      </a>
+
+      <a href="resume.pdf" class="contact-card primary" download>
+        <span class="contact-icon">📄</span>
+        <h3>Resume</h3>
+        <p>Download PDF</p>
+      </a>
+
+
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    © 2026 Kartik Dubey
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
