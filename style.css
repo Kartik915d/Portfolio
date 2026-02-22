@@ -60,50 +60,6 @@ a {
   text-decoration: none;
 }
 
-/* ================= NAV ================= */
-nav {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px);
-  max-width: 1200px;
-  background: rgba(255,255,255,.05);
-  backdrop-filter: blur(14px);
-  border-radius: 16px;
-  z-index: 100;
-}
-
-body.light nav {
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 8px 20px rgba(2,6,23,0.08);
-  border: 1px solid rgba(2,6,23,0.08);
-}
-
-
-.nav-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 22px;
-}
-
-.logo {
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.logo span {
-  color: var(--accent);
-}
-
-#themeToggle {
-  background: none;
-  border: none;
-  font-size: 1.1rem;
-  color: var(--text);
-  cursor: pointer;
-}
 
 /* ================= HERO ================= */
 .hero {
@@ -913,11 +869,6 @@ body {
     height: auto;
   }
 
-  /* ---------- NAVBAR ---------- */
-  .navbar {
-    padding: 12px 16px;
-  }
-
   .nav-inner {
     width: 100%;
   }
@@ -1162,5 +1113,180 @@ body {
   /* Keep doodles hidden on mobile */
   .hero-doodles {
     display: none;
+  }
+}
+
+/* ================= THEME SWITCH ================= */
+
+.theme-switch {
+  cursor: pointer;
+}
+
+.switch-track {
+  width: 54px;
+  height: 28px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.switch-thumb {
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* ACTIVE STATE (LIGHT MODE) */
+body.light .switch-track {
+  background: var(--accent);
+}
+
+body.light .switch-thumb {
+  left: 28px;
+}
+
+/* ================= UPDATED MODERN NAVBAR ================= */
+.navbar {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  
+  /* Glassmorphism Effect */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Mode Refinement */
+body.light .navbar {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Scroll Effect: Navbar shrinks slightly on scroll (requires simple JS toggle) */
+.navbar.scrolled {
+  top: 10px;
+  width: 95%;
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 32px;
+}
+
+/* Logo Design */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo span {
+  color: var(--accent);
+  text-shadow: 0 0 15px var(--glow);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 24px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.light .nav-links {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--text);
+}
+
+/* Animated Underline Indicator */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Modern Theme Toggle */
+.theme-switch {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.theme-switch:hover {
+  background: var(--accent);
+  color: white;
+  transform: rotate(15deg);
+}
+
+body.light .theme-switch {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide for mobile hamburger later */
+  }
+  .navbar {
+    width: calc(100% - 24px);
+    top: 12px;
   }
 }

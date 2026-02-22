@@ -5,21 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
 
   if (toggle) {
-    // Load saved theme
     const savedTheme = localStorage.getItem("theme");
+
     if (savedTheme === "light") {
       body.classList.add("light");
-      toggle.textContent = "🌞";
-    } else {
-      toggle.textContent = "🌙";
     }
 
-    // Toggle theme
     toggle.addEventListener("click", () => {
       body.classList.toggle("light");
 
       const isLight = body.classList.contains("light");
-      toggle.textContent = isLight ? "🌞" : "🌙";
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
   }
@@ -35,47 +30,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ================= TYPING EFFECT ================= */
   const words = [
-  "Backend Developer",
-  "Python Engineer",
-  "GenAI Enthusiast",
-  "Problem Solver"
-];
+    "Backend Developer",
+    "Python Engineer",
+    "GenAI Enthusiast",
+    "Problem Solver"
+  ];
 
-const typingEl = document.getElementById("typing");
+  const typingEl = document.getElementById("typing");
 
-if (typingEl) {
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
+  if (typingEl) {
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
 
-  function typeEffect() {
-    const currentWord = words[wordIndex];
+    function typeEffect() {
+      const currentWord = words[wordIndex];
 
-    if (!isDeleting) {
-      // Typing
-      typingEl.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
+      if (!isDeleting) {
+        typingEl.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
 
-      if (charIndex === currentWord.length) {
-        setTimeout(() => (isDeleting = true), 1200); // pause after typing
+        if (charIndex === currentWord.length) {
+          setTimeout(() => (isDeleting = true), 1200);
+        }
+      } else {
+        typingEl.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
       }
-    } else {
-      // Deleting
-      typingEl.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
 
-      if (charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-      }
+      setTimeout(typeEffect, isDeleting ? 50 : 90);
     }
 
-    setTimeout(typeEffect, isDeleting ? 50 : 90);
+    typeEffect();
   }
-
-  typeEffect();
-}
-
 
   /* ================= HERO PARALLAX ================= */
   const heroVisual = document.querySelector(".hero-visual");
@@ -101,14 +93,15 @@ if (typingEl) {
 
 });
 
+
+/* ================= PROJECT SCROLL ================= */
 function scrollProjects(direction) {
-  const container = document.getElementById("projectsContainer");
-  const scrollAmount = 320;
+  const container = document.getElementById("projectsScroll");
+
+  if (!container) return;
 
   container.scrollBy({
-    left: direction * scrollAmount,
+    left: direction * 320,
     behavior: "smooth"
   });
 }
-
-
