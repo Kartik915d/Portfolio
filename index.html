@@ -22,6 +22,8 @@
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#leadership">Leadership</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -104,17 +106,19 @@
 
     </div>
   </section>
-  <!-- ABOUT -->
-  <section id="about" class="about-section">
-    <div class="about-container">
 
-      <div class="about-image-wrapper">
-        <img src="image.PNG" alt="Kartik Dubey">
-      </div>
+ <section id="about" class="about-section">
+  <div class="about-container">
+    
+    <div class="about-image-wrapper">
+      <div class="image-glass-backdrop"></div>
+      <img src="image.PNG" alt="Kartik Dubey">
+    </div>
 
-      <div class="about-content">
-        <h2>About Me</h2>
+    <div class="about-content glass-card">
+      <h2 class="section-title-left">About Me</h2>
 
+      <div class="about-text">
         <p>
           I’m a <strong>final-year B.Tech Computer Engineering student (2026 batch)</strong> focused on building
           scalable backend systems and real-time applications.
@@ -128,29 +132,30 @@
           and continuously refine my engineering fundamentals.
         </p>
 
-        <p>
+        <p class="hiring-status">
           I’m currently <strong>open to internship and entry-level opportunities</strong> where I can
           contribute meaningfully while growing as a backend engineer.
         </p>
-
-        <div class="about-stats">
-          <div class="stat-item">
-            <span>2026</span>
-            <label>Expected Graduation</label>
-          </div>
-          <div class="stat-item">
-            <span>Backend And API</span>
-            <label>Focus Area</label>
-          </div>
-          <div class="stat-item">
-            <span>Active</span>
-            <label>Seeking Full time Job</label>
-          </div>
-        </div>
       </div>
 
+      <div class="about-stats">
+        <div class="stat-item">
+          <span class="stat-value">2026</span>
+          <label class="stat-label">Expected Graduation</label>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">Backend & API</span>
+          <label class="stat-label">Focus Area</label>
+        </div>
+        <div class="stat-item highlight">
+          <span class="stat-value">Active</span>
+          <label class="stat-label">Seeking Opportunities</label>
+        </div>
+      </div>
     </div>
-  </section>
+
+  </div>
+</section>
 
   <!-- SKILL -->
   <section id="skills" class="skills-section">
@@ -195,6 +200,137 @@
       </div>
     </div>
   </section>
+
+<section id="experience" class="portfolio-section">
+  <h2 class="section-title">Professional Experience</h2>
+  <div class="experience-wrapper">
+    
+    <div class="experience-card">
+      <div class="card-glow"></div>
+      <div class="experience-header">
+        <div class="role-info">
+          <h3>Software Development Intern</h3>
+          <span class="experience-company">Jawaharlal Nehru Port Authority (JNPA)</span>
+        </div>
+        <span class="experience-duration">December 2025-March 2025</span>
+      </div>
+      <ul class="experience-details">
+        <li>Designed and developed internal dashboards for real-time data visualization.</li>
+        <li>Built automation workflows for internship letter generation systems.</li>
+        <li>Implemented backend form validation and dynamic PDF generation.</li>
+        <li>Optimized system performance and debugging for web applications.</li>
+      </ul>
+    </div>
+
+    <div class="experience-card">
+      <div class="card-glow"></div>
+      <div class="experience-header">
+        <div class="role-info">
+          <h3>Technical Intern</h3>
+          <span class="experience-company">Savidha Foundation</span>
+        </div>
+        <span class="experience-duration">June 2025 - July 2025</span>
+      </div>
+      <ul class="experience-details">
+        <li>Contributed to website development and backend functionality.</li>
+        <li>Assisted in database handling and structured data management.</li>
+        <li>Performed feature testing to ensure smooth user experience.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="portfolio-section">
+  <h2 class="section-title">Professional Experience</h2>
+  <div class="experience-wrapper">
+    
+    <div class="experience-card">
+      <div class="experience-header">
+        <div class="role-info">
+          <h3>Software Development Intern</h3>
+          <span class="experience-company">Jawaharlal Nehru Port Authority (JNPA)</span>
+        </div>
+        <span class="experience-duration">2024</span>
+      </div>
+      <ul class="experience-details">
+        <li>Designed internal dashboards for real-time data visualization and reporting.</li>
+        <li>Built automation workflows for internship letter generation systems.</li>
+      </ul>
+    </div>
+
+    <div class="experience-card">
+      <div class="experience-header">
+        <div class="role-info">
+          <h3>Technical Intern</h3>
+          <span class="experience-company">Savidha Foundation</span>
+        </div>
+        <span class="experience-duration">2023</span>
+      </div>
+      <ul class="experience-details">
+        <li>Contributed to website development and backend functionality enhancements.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="leadership" class="portfolio-section">
+  <h2 class="section-title">Leadership & Activities</h2>
+  <div class="experience-wrapper">
+    
+    <div class="experience-card leadership-highlight" id="csi-card">
+      <div class="experience-header">
+        <div class="role-info">
+          <h3>Computer Society of India (CSI PCE)</h3>
+          <div class="multi-role-tabs">
+            <button class="role-tab active" onclick="showRole(event, 'csi', 'chair')">Chairperson</button>
+            <button class="role-tab" onclick="showRole(event, 'csi', 'vice')">Vice Chairperson</button>
+            <button class="role-tab" onclick="showRole(event, 'csi', 'publicity')">Publicity Member</button>
+          </div>
+        </div>
+        <span class="experience-duration" id="csi-duration">2025 – Present</span>
+      </div>
+
+      <div id="csi-details">
+        <ul class="experience-details" id="csi-chair-content">
+          <li>Led technical events, hackathons, and workshops for 200+ students.</li>
+          <li>Managed event planning, execution strategy, and team coordination.</li>
+        </ul>
+        <ul class="experience-details" id="csi-vice-content" style="display:none;">
+          <li>Assisted in overseeing department-level technical fests and fests.</li>
+          <li>Coordinated between committees to ensure smooth event flow.</li>
+        </ul>
+        <ul class="experience-details" id="csi-publicity-content" style="display:none;">
+          <li>Designed and executed social media campaigns for technical workshops.</li>
+          <li>Increased student registration by 40% through targeted outreach.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="experience-card" id="nss-card">
+      <div class="experience-header">
+        <div class="role-info">
+          <h3>National Service Scheme (NSS PCE)</h3>
+          <div class="multi-role-tabs">
+            <button class="role-tab active" onclick="showRole(event, 'nss', 'media')">Media Head</button>
+            <button class="role-tab" onclick="showRole(event, 'nss', 'member')">Member</button>
+          </div>
+        </div>
+        <span class="experience-duration" id="nss-duration">2023 – 2024</span>
+      </div>
+
+      <div id="nss-details">
+        <ul class="experience-details" id="nss-media-content">
+          <li>Managed digital presence and content strategy for social initiatives.</li>
+          <li>Led media documentation for large-scale social and technical events.</li>
+        </ul>
+        <ul class="experience-details" id="nss-member-content" style="display:none;">
+          <li>Participated in community service projects and rural development camps.</li>
+          <li>Assisted in organizing blood donation drives and awareness campaigns.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- PROJECTS -->
   <section id="projects" class="projects-section">

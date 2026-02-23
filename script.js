@@ -105,3 +105,38 @@ function scrollProjects(direction) {
     behavior: "smooth"
   });
 }
+function showRole(event, org, role) {
+    // 1. Get the specific card being interacted with
+    const card = document.getElementById(`${org}-card`);
+    
+    // 2. Map of roles to their durations
+    const durations = {
+        'chair': '2025 – Present',
+        'vice': '2024 – 2025',
+        'publicity': '2023 – 2024',
+        'media': '2023 – 2024',
+        'member': '2022 – 2023'
+    };
+
+    // 3. Deactivate all tabs IN THIS CARD ONLY
+    const tabs = card.querySelectorAll('.role-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // 4. Activate the clicked tab
+    event.currentTarget.classList.add('active');
+
+    // 5. Hide all description lists IN THIS CARD ONLY
+    const lists = card.querySelectorAll('.experience-details');
+    lists.forEach(list => {
+        list.style.display = 'none';
+    });
+
+    // 6. Show the selected list and update duration
+    const targetList = document.getElementById(`${org}-${role}-content`);
+    const durationLabel = document.getElementById(`${org}-duration`);
+    
+    if (targetList) targetList.style.display = 'block';
+    if (durationLabel && durations[role]) {
+        durationLabel.innerText = durations[role];
+    }
+}
