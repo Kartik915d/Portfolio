@@ -140,3 +140,20 @@ function showRole(event, org, role) {
         durationLabel.innerText = durations[role];
     }
 }
+const menuBtn = document.getElementById('menuToggle');
+const navContent = document.getElementById('navContent');
+
+if (menuBtn && navContent) {
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('active');
+    navContent.classList.toggle('active');
+  });
+
+  // Close when clicking a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuBtn.classList.remove('active');
+      navContent.classList.remove('active');
+    });
+  });
+}
