@@ -1215,7 +1215,7 @@ footer {
     border: 4px solid var(--bg);
     z-index: 3;
     object-fit: cover;
-    position: relative;
+    position: absolute;
     transform: none; 
   }
 
