@@ -95,6 +95,7 @@ resizeCanvas();
 window.addEventListener("resize", () => {
   resizeCanvas();
   initParticles();
+  createStars();
 });
 
 /* ================= TEXT ================= */
@@ -102,20 +103,22 @@ window.addEventListener("resize", () => {
 let particles = [];
 let stars = [];
 let time = 0;
+let isMobile = window.innerWidth < 768;
 
 function initParticles(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  const isMobile = window.innerWidth < 600;
-  const fontSize = isMobile ? 55 : 130;
+  isMobile = window.innerWidth < 768;
+
+  const fontSize = isMobile ? 85 : 130;   // 👈 bigger mobile font
 
   ctx.fillStyle="white";
   ctx.font=`bold ${fontSize}px Arial`;
   ctx.textAlign="center";
 
   if(isMobile){
-    ctx.fillText("KARTIK", canvas.width/2, canvas.height/2 - 35);
-    ctx.fillText("DUBEY", canvas.width/2, canvas.height/2 + 35);
+    ctx.fillText("KARTIK", canvas.width/2, canvas.height/2 - 55);
+    ctx.fillText("DUBEY", canvas.width/2, canvas.height/2 + 55);
   }else{
     ctx.fillText("KARTIK DUBEY", canvas.width/2, canvas.height/2);
   }
@@ -146,7 +149,6 @@ function createStars(){
       x:Math.random()*canvas.width,
       y:Math.random()*canvas.height,
       size:Math.random()*3,
-      // speed:Math.random()*0.03 + 0.01,
       speed:Math.random()*1+1,
       phase:Math.random()*Math.PI*2
     });
@@ -154,22 +156,49 @@ function createStars(){
 }
 createStars();
 
-/* ================= MOUSE ================= */
+/* ================= INTERACTION ================= */
 
-let mouse={
-  x:canvas.width/2,
-  y:canvas.height/2,
-  radius:100
+let mouse = {
+  x:null,
+  y:null,
+  radius:120,
+  active:false
 };
 
-let cursor = { x:canvas.width/2, y:canvas.height/2 };
+/* Desktop mouse */
+if(!isMobile){
+  window.addEventListener("mousemove",(e)=>{
+    mouse.x=e.clientX;
+    mouse.y=e.clientY;
+    mouse.active=true;
+  });
 
-window.addEventListener("mousemove",(e)=>{
-  mouse.x=e.clientX;
-  mouse.y=e.clientY;
-});
+  window.addEventListener("mouseleave",()=>{
+    mouse.active=false;
+  });
+}
 
-/* ================= MAIN ANIMATION ================= */
+/* Mobile touch */
+if(isMobile){
+  window.addEventListener("touchstart",(e)=>{
+    const touch = e.touches[0];
+    mouse.x = touch.clientX;
+    mouse.y = touch.clientY;
+    mouse.active = true;
+  });
+
+  window.addEventListener("touchmove",(e)=>{
+    const touch = e.touches[0];
+    mouse.x = touch.clientX;
+    mouse.y = touch.clientY;
+  });
+
+  window.addEventListener("touchend",()=>{
+    mouse.active = false;
+  });
+}
+
+/* ================= ANIMATION ================= */
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -183,33 +212,28 @@ function animate(){
     ctx.fillRect(s.x, s.y, s.size, s.size);
   }
 
-  /* Smooth cursor follow */
-  cursor.x += (mouse.x - cursor.x) * 0.2;
-  cursor.y += (mouse.y - cursor.y) * 0.2;
-
-  ctx.beginPath();
-  ctx.arc(cursor.x, cursor.y, 18, 0, Math.PI * 2);
-  ctx.strokeStyle="rgba(0,123,255,0.7)";
-  ctx.lineWidth=2;
-  ctx.stroke();
-
   /* Particle motion */
   for(let i=0;i<particles.length;i++){
     let p = particles[i];
 
-    let dx = mouse.x - p.x;
-    let dy = mouse.y - p.y;
-    let dist = dx*dx + dy*dy;
+    if(mouse.active){
+      let dx = mouse.x - p.x;
+      let dy = mouse.y - p.y;
+      let dist = dx*dx + dy*dy;
 
-    if(dist < mouse.radius * mouse.radius){
-      let angle = Math.atan2(dy,dx);
-      let force = (mouse.radius*mouse.radius - dist) / (mouse.radius*mouse.radius);
-      p.x -= Math.cos(angle) * force * 15;
-      p.y -= Math.sin(angle) * force * 15;
+      if(dist < mouse.radius * mouse.radius){
+        let angle = Math.atan2(dy,dx);
+        let force = (mouse.radius*mouse.radius - dist) / (mouse.radius*mouse.radius);
+        p.x -= Math.cos(angle) * force * 15;
+        p.y -= Math.sin(angle) * force * 15;
+      }else{
+        p.x += (p.baseX - p.x) * 0.08;
+        p.y += (p.baseY - p.y) * 0.08;
+      }
     }else{
-      /* Slower fallback */
-      p.x += (p.baseX - p.x) * 0.06;
-      p.y += (p.baseY - p.y) * 0.06;
+      /* Completely stable when not interacting */
+      p.x += (p.baseX - p.x) * 0.05;
+      p.y += (p.baseY - p.y) * 0.05;
     }
 
     ctx.fillStyle="#007bff";
@@ -227,7 +251,7 @@ function goToPortfolio(){
   window.location.href="Main.html";
 }
 
-if(window.innerWidth > 500){
+if(!isMobile){
   document.getElementById("intro").addEventListener("click",goToPortfolio);
 }
 
