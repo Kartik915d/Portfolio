@@ -132,7 +132,7 @@ body.light .navbar {
 }
 
 body.light .nav-links {
-  background: rgba(0, 0, 0, 0.03);
+  /* background: rgba(0, 0, 0, 0.03); */
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
@@ -1443,7 +1443,7 @@ footer {
     position: fixed;
     top: 0;
     right: -100%; /* Start hidden */
-    width: 80%;
+    width: 60%;
     height: 100vh;
     background: var(--card);
     backdrop-filter: blur(20px);
@@ -1503,7 +1503,7 @@ footer {
     position: fixed;
     top: 0;
     right: -100%; /* Hidden off-screen */
-    width: 75%;
+    width: 60%;
     height: 100vh;
     flex-direction: column; /* Stack vertically only on mobile */
     justify-content: center;
