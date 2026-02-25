@@ -13,17 +13,9 @@ body{
   background:#050505;
 }
 
-/* ================= INTRO OVERLAY ================= */
-
 #intro{
   position:fixed;
   inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-  cursor:pointer;
 }
 
 #canvas{
@@ -31,18 +23,20 @@ body{
   inset:0;
 }
 
-/* Desktop → hide button */
+/* Hide button on desktop */
 #enterBtn{
   display:none;
 }
 
 /* Mobile Button */
 @media (max-width:768px){
+
   #enterBtn{
     display:block;
-    position:relative;
-    z-index:2;
-    margin-top:40px;
+    position:absolute;
+    bottom:40px;        /* 👈 pushes button to bottom */
+    left:50%;
+    transform:translateX(-50%);
     padding:14px 32px;
     background:#007bff;
     border:none;
@@ -50,7 +44,10 @@ body{
     font-size:16px;
     border-radius:8px;
     cursor:pointer;
+    z-index:2;
+    box-shadow:0 10px 30px rgba(0,123,255,0.4);
   }
+
 }
 </style>
 </head>
@@ -147,18 +144,17 @@ function animate(){
 
 animate();
 
-/* ================= REDIRECT LOGIC ================= */
-
+/* Redirect */
 function goToPortfolio(){
-  window.location.href = "Main.html";
+  window.location.href = "index2.html";
 }
 
-/* Desktop → click anywhere */
+/* Desktop click anywhere */
 if(window.innerWidth > 768){
   document.getElementById("intro").addEventListener("click", goToPortfolio);
 }
 
-/* Mobile → button click */
+/* Mobile button click */
 document.getElementById("enterBtn").addEventListener("click", function(e){
   e.stopPropagation();
   goToPortfolio();
