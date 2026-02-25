@@ -10,6 +10,7 @@ body{
   margin:0;
   font-family:Arial, sans-serif;
   overflow:hidden;
+  background:#050505;
 }
 
 /* ================= INTRO OVERLAY ================= */
@@ -17,31 +18,11 @@ body{
 #intro{
   position:fixed;
   inset:0;
-  background:#050505;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   z-index:9999;
-  transition:opacity 1s ease, visibility 1s ease;
-  cursor:pointer;
-}
-
-#intro.hide{
-  opacity:0;
-  visibility:hidden;
-}
-
-#intro button{
-  position:relative;
-  z-index:2;
-  margin-top:40px;
-  padding:12px 28px;
-  background:#007bff;
-  border:none;
-  color:white;
-  font-size:16px;
-  border-radius:6px;
   cursor:pointer;
 }
 
@@ -49,14 +30,36 @@ body{
   position:absolute;
   inset:0;
 }
+
+/* Desktop → hide button */
+#enterBtn{
+  display:none;
+}
+
+/* Mobile Button */
+@media (max-width:768px){
+  #enterBtn{
+    display:block;
+    position:relative;
+    z-index:2;
+    margin-top:40px;
+    padding:14px 32px;
+    background:#007bff;
+    border:none;
+    color:white;
+    font-size:16px;
+    border-radius:8px;
+    cursor:pointer;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- INTRO OVERLAY -->
 <div id="intro">
   <canvas id="canvas"></canvas>
+  <button id="enterBtn">Enter Portfolio</button>
 </div>
 
 <script>
@@ -79,7 +82,7 @@ let particles = [];
 function initParticles(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  const fontSize = canvas.width < 600 ? 60 : 120;
+  const fontSize = canvas.width < 600 ? 40 : 120;
 
   ctx.fillStyle="white";
   ctx.font=`bold ${fontSize}px Arial`;
@@ -144,23 +147,22 @@ function animate(){
 
 animate();
 
-/* REDIRECT */
-function enterPortfolio(event){
-  event.stopPropagation();
-  fadeAndRedirect();
+/* ================= REDIRECT LOGIC ================= */
+
+function goToPortfolio(){
+  window.location.href = "index2.html";
 }
 
-document.getElementById("intro").addEventListener("click", function(){
-  fadeAndRedirect();
+/* Desktop → click anywhere */
+if(window.innerWidth > 768){
+  document.getElementById("intro").addEventListener("click", goToPortfolio);
+}
+
+/* Mobile → button click */
+document.getElementById("enterBtn").addEventListener("click", function(e){
+  e.stopPropagation();
+  goToPortfolio();
 });
-
-function fadeAndRedirect(){
-  document.getElementById("intro").classList.add("hide");
-
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 900);
-}
 </script>
 
 </body>
