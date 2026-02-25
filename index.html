@@ -72,6 +72,48 @@ body{
 @keyframes fadeIn{
   to{ opacity:1; }
 }
+
+
+/* Intro Text Styling */
+
+.intro-text{
+  position:absolute;
+  top:53%;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  color:#ccc;
+  z-index:2;
+  max-width:90%;
+}
+
+.role{
+  font-size:18px;
+  margin-bottom:8px;
+  letter-spacing:1px;
+}
+
+.focus{
+  font-size:16px;
+  color:#888;
+  letter-spacing:1px;
+}
+
+/* Mobile adjustments */
+@media (max-width:768px){
+
+  .intro-text{
+    top:60%;
+  }
+
+  .role{
+    font-size:16px;
+  }
+
+  .focus{
+    font-size:14px;
+  }
+}
 </style>
 </head>
 
@@ -79,9 +121,20 @@ body{
 
 <div id="intro">
   <canvas id="canvas"></canvas>
+
+  <div class="intro-text">
+    <p class="role">
+      Chairperson, CSI PCE · B.Tech Computer Engineering ’26
+    </p>
+    <p class="focus">
+      Backend Engineering | System Design | Generative AI
+    </p>
+  </div>
+
   <div id="hint">CLICK ANYWHERE TO ENTER</div>
   <button id="enterBtn">Enter Portfolio</button>
 </div>
+
 
 <script>
 const canvas = document.getElementById("canvas");
