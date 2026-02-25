@@ -8,33 +8,52 @@
 <style>
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  overflow:hidden;
   background:#050505;
+  overflow:hidden;
+  font-family: 'Arial', sans-serif;
 }
 
 #intro{
   position:fixed;
   inset:0;
+  overflow:hidden;
+  cursor:pointer;
 }
 
+/* Canvas */
 #canvas{
   position:absolute;
   inset:0;
 }
 
-/* Hide button on desktop */
+/* Hint text */
+#hint{
+  position:absolute;
+  bottom:60px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#aaa;
+  font-size:14px;
+  letter-spacing:2px;
+  opacity:0;
+  animation:fadeIn 2s ease forwards;
+  animation-delay:2s;
+}
+
+/* Mobile Button */
 #enterBtn{
   display:none;
 }
 
-/* Mobile Button */
 @media (max-width:768px){
+  #hint{
+    display:none;
+  }
 
   #enterBtn{
     display:block;
     position:absolute;
-    bottom:40px;        /* 👈 pushes button to bottom */
+    bottom:40px;
     left:50%;
     transform:translateX(-50%);
     padding:14px 32px;
@@ -47,7 +66,10 @@ body{
     z-index:2;
     box-shadow:0 10px 30px rgba(0,123,255,0.4);
   }
+}
 
+@keyframes fadeIn{
+  to{ opacity:1; }
 }
 </style>
 </head>
@@ -56,6 +78,7 @@ body{
 
 <div id="intro">
   <canvas id="canvas"></canvas>
+  <div id="hint">CLICK ANYWHERE TO ENTER</div>
   <button id="enterBtn">Enter Portfolio</button>
 </div>
 
@@ -75,32 +98,46 @@ window.addEventListener("resize", () => {
 
 const text = "KARTIK DUBEY";
 let particles = [];
+let stars = [];
+
+/* Faster background stars */
+for(let i=0;i<100;i++){
+  stars.push({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    size:Math.random()*2
+  });
+}
 
 function initParticles(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  const fontSize = canvas.width < 600 ? 40 : 120;
+  const isMobile = window.innerWidth < 600;
+  const fontSize = isMobile ? 55 : 130;
 
   ctx.fillStyle="white";
   ctx.font=`bold ${fontSize}px Arial`;
   ctx.textAlign="center";
-  ctx.fillText(text, canvas.width/2, canvas.height/2);
+
+  if(isMobile){
+    // Two-line layout for mobile
+    ctx.fillText("KARTIK", canvas.width/2, canvas.height/2 - 35);
+    ctx.fillText("DUBEY", canvas.width/2, canvas.height/2 + 35);
+  }else{
+    // Single line for desktop
+    ctx.fillText("KARTIK DUBEY", canvas.width/2, canvas.height/2);
+  }
 
   const data = ctx.getImageData(0,0,canvas.width,canvas.height);
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  particles = [];
+  particles=[];
 
-  for(let y=0;y<canvas.height;y+=5){
-    for(let x=0;x<canvas.width;x+=5){
+  for(let y=0;y<canvas.height;y+=4){   // 👈 tighter spacing (sharper text)
+    for(let x=0;x<canvas.width;x+=4){
       const index=(y*canvas.width+x)*4;
       if(data.data[index+3]>128){
-        particles.push({
-          x:x,
-          y:y,
-          baseX:x,
-          baseY:y
-        });
+        particles.push({x,y,baseX:x,baseY:y});
       }
     }
   }
@@ -108,35 +145,68 @@ function initParticles(){
 
 initParticles();
 
-let mouse = { x:null, y:null, radius:100 };
+let mouse={
+  x:canvas.width/2,
+  y:canvas.height/2,
+  radius:90
+};
 
-window.addEventListener("mousemove", function(e){
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
+let cursor = { x:canvas.width/2, y:canvas.height/2 };
+
+window.addEventListener("mousemove",(e)=>{
+  mouse.x=e.clientX;
+  mouse.y=e.clientY;
 });
 
+/* Main Animation */
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  particles.forEach(p=>{
-    let dx = mouse.x - p.x;
-    let dy = mouse.y - p.y;
-    let distance = Math.sqrt(dx*dx + dy*dy);
+  /* Draw background stars */
+  stars.forEach(s=>{
+    ctx.fillStyle="rgba(255,255,255,0.1)";
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+    ctx.fill();
+  });
 
-    if(distance < mouse.radius){
-      let angle = Math.atan2(dy, dx);
-      let force = (mouse.radius - distance) / mouse.radius;
-      p.x -= Math.cos(angle) * force * 8;
-      p.y -= Math.sin(angle) * force * 8;
-    } else {
-      p.x += (p.baseX - p.x) * 0.05;
-      p.y += (p.baseY - p.y) * 0.05;
+  /* Smooth cursor follow */
+  cursor.x += (mouse.x - cursor.x) * 0.15;
+  cursor.y += (mouse.y - cursor.y) * 0.15;
+
+  /* Glowing cursor circle */
+  ctx.beginPath();
+  ctx.arc(cursor.x, cursor.y, 25, 0, Math.PI * 2);
+  ctx.strokeStyle="rgba(0,123,255,0.6)";
+  ctx.lineWidth=2;
+  ctx.shadowColor="#007bff";
+  ctx.shadowBlur=15;
+  ctx.stroke();
+  ctx.shadowBlur=0;
+
+  /* Faster particle motion */
+  particles.forEach(p=>{
+    let dx=mouse.x-p.x;
+    let dy=mouse.y-p.y;
+    let dist=Math.sqrt(dx*dx+dy*dy);
+
+    if(dist<mouse.radius){
+      let angle=Math.atan2(dy,dx);
+      let force=(mouse.radius-dist)/mouse.radius;
+      p.x-=Math.cos(angle)*force*12;   // 👈 stronger push
+      p.y-=Math.sin(angle)*force*12;
+    }else{
+      p.x+=(p.baseX-p.x)*0.12;        // 👈 faster return
+      p.y+=(p.baseY-p.y)*0.12;
     }
 
-    ctx.fillStyle = "#007bff";
+    ctx.fillStyle="#007bff";
+    ctx.shadowColor="#007bff";
+    ctx.shadowBlur=10;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+    ctx.arc(p.x,p.y,1.5,0,Math.PI*2);
     ctx.fill();
+    ctx.shadowBlur=0;
   });
 
   requestAnimationFrame(animate);
@@ -146,19 +216,61 @@ animate();
 
 /* Redirect */
 function goToPortfolio(){
-  window.location.href = "Main.html";
+  window.location.href="Main.html";
 }
 
-/* Desktop click anywhere */
-if(window.innerWidth > 768){
-  document.getElementById("intro").addEventListener("click", goToPortfolio);
+if(window.innerWidth > 500){
+  document.getElementById("intro").addEventListener("click",goToPortfolio);
 }
 
-/* Mobile button click */
-document.getElementById("enterBtn").addEventListener("click", function(e){
+document.getElementById("enterBtn").addEventListener("click",(e)=>{
   e.stopPropagation();
   goToPortfolio();
 });
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  /* Lightweight stars */
+  for(let i=0;i<stars.length;i++){
+    let s = stars[i];
+    ctx.fillStyle="rgba(255,255,255,0.08)";
+    ctx.fillRect(s.x, s.y, s.size, s.size);
+  }
+
+  /* Smooth cursor follow (faster response) */
+  cursor.x += (mouse.x - cursor.x) * 0.25;  // faster tracking
+  cursor.y += (mouse.y - cursor.y) * 0.25;
+
+  ctx.beginPath();
+  ctx.arc(cursor.x, cursor.y, 20, 0, Math.PI * 2);
+  ctx.strokeStyle="rgba(0,123,255,0.7)";
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  /* Faster particle physics */
+  for(let i=0;i<particles.length;i++){
+    let p = particles[i];
+
+    let dx = mouse.x - p.x;
+    let dy = mouse.y - p.y;
+    let dist = dx*dx + dy*dy; // faster than sqrt
+
+    if(dist < mouse.radius * mouse.radius){
+      let angle = Math.atan2(dy,dx);
+      let force = (mouse.radius*mouse.radius - dist) / (mouse.radius*mouse.radius);
+      p.x -= Math.cos(angle) * force * 18;   // stronger push
+      p.y -= Math.sin(angle) * force * 18;
+    }else{
+      p.x += (p.baseX - p.x) * 0.18;         // faster snap back
+      p.y += (p.baseY - p.y) * 0.18;
+    }
+
+    ctx.fillStyle="#007bff";
+    ctx.fillRect(p.x, p.y, 2, 2); // faster than arc()
+  }
+
+  requestAnimationFrame(animate);
+}
 </script>
 
 </body>
