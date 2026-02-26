@@ -149,6 +149,7 @@ window.addEventListener("resize", () => {
   resizeCanvas();
   initParticles();
   createStars();
+  mouse.radius = window.innerWidth < 768 ? 70 : 120;
 });
 
 /* ================= TEXT ================= */
@@ -214,7 +215,7 @@ createStars();
 let mouse = {
   x:null,
   y:null,
-  radius:120,
+  radius: window.innerWidth < 768 ? 70 : 120,
   active:false
 };
 
