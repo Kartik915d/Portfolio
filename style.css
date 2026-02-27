@@ -1529,3 +1529,499 @@ footer {
     display: flex;
   }
 }
+
+/* ================= LEADERSHIP TIMELINE ================= */
+
+.timeline-section {
+  position: relative;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 120px auto 0;
+  padding: 100px 0;
+}
+
+/* .timeline-item {
+  margin-bottom: 180px;
+} */
+
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  transform: translateX(-50%);
+  opacity: 0.7;
+}
+
+/* Timeline item */
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 30px 50px;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+/* Dot */
+.timeline-dot {
+  position: absolute;
+  top: 40px;
+  width: 18px;
+  height: 18px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--glow);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+  right: -9px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -9px;
+}
+
+/* Content card */
+.timeline-content {
+  background: var(--card);
+  padding: 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-strong);
+  transition: all 0.35s ease;
+}
+
+body.light .timeline-content {
+  border: 1px solid rgba(2, 6, 23, 0.08);
+}
+
+.timeline-content:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+/* Year */
+.timeline-year {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.timeline-content h3 {
+  margin: 10px 0 6px;
+  font-size: 1.3rem;
+  color: var(--text);
+}
+
+.timeline-content p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ================= RESPONSIVE TIMELINE ================= */
+
+@media (max-width: 768px) {
+
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 20px;
+    text-align: left !important;
+  }
+
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    left: 0;
+  }
+
+  .timeline-dot {
+    left: 11px !important;
+    right: auto;
+  }
+}
+/* ================= TIMELINE SCROLL ANIMATION ================= */
+
+.timeline-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Alternate direction like golfgamebook */
+.timeline-item:nth-child(odd) {
+  transform: translateX(-60px);
+}
+
+.timeline-item:nth-child(even) {
+  transform: translateX(60px);
+}
+
+/* When visible */
+.timeline-item.active {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* Smooth dot pulse when visible */
+.timeline-item.active .timeline-dot {
+  animation: pulseGlow 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 10px var(--glow);
+  }
+  to {
+    box-shadow: 0 0 25px var(--accent);
+  }
+}
+
+/* ================= MEMORY LANE (Leadership) =================
+   REPLACE everything from line 1699 to end of file in style.css
+   ============================================================ */
+
+/* ===== MEMORY LANE SECTION ===== */
+.memorylane-section {
+  padding: 100px 6%;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+.memorylane-subtitle {
+  color: var(--muted);
+  margin-top: -10px;
+  margin-bottom: 60px;
+  font-size: 1rem;
+}
+
+/* ===== TWO-COLUMN LAYOUT ===== */
+.memorylane-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+  text-align: left;
+}
+
+/* ===== LEFT STICKY NAV ===== */
+.memorylane-nav {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.ml-year-link {
+  display: block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+
+.ml-year-link:hover {
+  color: var(--text);
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.ml-year-link.active {
+  color: var(--accent);
+  font-weight: 700;
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* ===== RIGHT SCROLL ENTRIES (desktop: has the vertical line) ===== */
+.memorylane-entries {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+/* ---- THE VERTICAL TRACK LINE (desktop only) ---- */
+.memorylane-entries::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  border-radius: 2px;
+}
+
+/* ---- THE ANIMATED PROGRESS LINE that fills down as you scroll ---- */
+.memorylane-entries::after {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 0;
+  width: 2px;
+  height: var(--line-progress, 0%);
+  background: linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--accent) 60%, transparent));
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+  transition: height 0.05s linear;
+}
+
+/* ===== INDIVIDUAL ENTRY ===== */
+.ml-entry {
+  padding: 60px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.ml-entry:last-child {
+  border-bottom: none;
+}
+
+/* ---- DOT on the line for each entry (desktop) ---- */
+.ml-entry::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  z-index: 2;
+}
+
+/* ---- Active dot glows ---- */
+.ml-entry.ml-active::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent),
+              0 0 14px var(--glow);
+}
+
+.ml-entry-year {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+/* ===== ENTRY BODY: text left, visual right ===== */
+.ml-entry-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.ml-entry-text {
+  flex: 1;
+}
+
+.ml-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  margin-bottom: 16px;
+}
+
+.ml-entry-text h3 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.ml-entry-text p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 480px;
+}
+
+/* ===== ICON BOX ===== */
+.ml-entry-visual {
+  flex-shrink: 0;
+}
+
+.ml-icon-box {
+  width: 130px;
+  height: 130px;
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: var(--shadow-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ml-entry:hover .ml-icon-box {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+
+/* =====================================================
+   TABLET (769px – 1024px)
+   ===================================================== */
+@media (max-width: 1024px) {
+  .memorylane-wrapper {
+    gap: 30px;
+  }
+  .ml-icon-box {
+    width: 100px;
+    height: 100px;
+    font-size: 2.8rem;
+  }
+  .ml-entry-text h3 {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* =====================================================
+   MOBILE (≤768px)
+   The layout becomes a single vertical column.
+   The LEFT nav becomes horizontal pills at the top.
+   The animated line runs THROUGH the center of
+   each entry dot — just like GolfGameBook on mobile.
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* Stack vertically */
+  .memorylane-wrapper {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ---- Year pills become a horizontal scrollable row ---- */
+  .memorylane-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    margin-bottom: 40px;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .memorylane-nav::-webkit-scrollbar { display: none; }
+
+  .ml-year-link {
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ml-year-link.active,
+  .ml-year-link:hover {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---- Remove the desktop ::before track line ---- */
+  .memorylane-entries::before {
+    display: none;
+  }
+
+  /* ---- Mobile progress line: centered, runs top→bottom ---- */
+  .memorylane-entries {
+    padding-left: 36px;  /* space for the line on the left */
+  }
+
+  .memorylane-entries::before {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 2px;
+  }
+
+  .memorylane-entries::after {
+    left: 7px;  /* same x as the track line */
+  }
+
+  /* ---- Mobile dots: left side ---- */
+  .ml-entry::before {
+    left: -36px;
+    top: 60px;    /* align with entry top area instead of center */
+    transform: none;
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ---- Entry layout: stack vertically ---- */
+  .ml-entry {
+    padding: 40px 0;
+  }
+
+  .ml-entry-body {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .ml-icon-box {
+    width: 80px;
+    height: 80px;
+    font-size: 2.2rem;
+    border-radius: 16px;
+  }
+
+  .ml-entry-text h3 {
+    font-size: 1.4rem;
+  }
+
+  .ml-entry-text p {
+    max-width: 100%;
+    font-size: 0.95rem;
+  }
+}
