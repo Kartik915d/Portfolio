@@ -6,12 +6,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kartik Dubey | Backend Developer</title>
   <link rel="stylesheet" href="./style.css" />
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="./image2.PNG">
-
 </head>
 
 <body>
+
+  <!-- STARFIELD CANVAS (dark theme only, hidden via CSS in light mode) -->
+  <canvas id="stars-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+  <script>
+    (function () {
+      const canvas = document.getElementById("stars-canvas");
+      const ctx = canvas.getContext("2d");
+      let stars = [], time = 0;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      function createStars() {
+        stars = [];
+        for (let i = 0; i < 1500; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 1.8 + 0.2,
+            speed: Math.random() * 0.8 + 0.4,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+      createStars();
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        time += 0.02;
+        for (let s of stars) {
+          const opacity = 0.2 + Math.sin(time * s.speed + s.phase) * 0.25;
+          ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+          ctx.fillRect(s.x, s.y, s.size, s.size);
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
 
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
@@ -45,14 +86,13 @@
 
   <!-- HERO -->
   <section class="hero">
-
     <div class="hero-wrapper">
 
       <!-- LEFT -->
       <div class="hero-content">
         <h1>Hi, I'm <span>Kartik Dubey</span></h1>
         <p class="availability-badge">
-          🟢 Open to Internships & Entry-Level Roles (2026)
+          🟢 Open to Internships &amp; Entry-Level Roles (2026)
         </p>
 
         <p class="subtitle">
@@ -70,70 +110,57 @@
           <a href="#projects" class="btn">View Projects</a>
           <a href="Resume___FND.pdf" class="btn secondary" download>Download Resume</a>
           <a href="#contact" class="btn secondary">Contact Me</a>
-
         </div>
       </div>
 
-
       <!-- RIGHT -->
       <div class="hero-visual">
-
-        <!-- BACKGROUND CIRCLE -->
         <div class="hero-bg"></div>
-
-        <!-- GEOMETRIC DOODLES (BEHIND IMAGE) -->
-        <div class="hero-visual">
-          <div class="hero-bg"></div>
-          <div class="hero-doodles">
-            <svg class="doodle-svg star primary" viewBox="0 0 100 100">
-              <path d="M50 5 L60 40 L95 50 L60 60 L50 95 L40 60 L5 50 L40 40 Z" />
-            </svg>
-            <svg class="doodle-svg triangle blurred" viewBox="0 0 100 100">
-              <path d="M50 15 L90 85 L10 85 Z" />
-            </svg>
-            <svg class="doodle-svg plus secondary" viewBox="0 0 100 100">
-              <path d="M20 50 L80 50 M50 20 L50 80" />
-            </svg>
-
-            <svg class="doodle-svg circle secondary" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" />
-            </svg>
-            <svg class="doodle-svg zigzag primary" viewBox="0 0 100 100">
-              <path d="M10 50 L30 20 L50 80 L70 20 L90 50" />
-            </svg>
-            <svg class="doodle-svg plane primary" viewBox="0 0 100 60">
-              <path d="M0 30 L100 30 M70 10 L100 30 L70 50" />
-            </svg>
-
-            <svg class="doodle-svg wave blurred" viewBox="0 0 120 60">
-              <path d="M0 30 C20 10, 40 50, 60 30 C80 10, 100 50, 120 30" />
-            </svg>
-            <svg class="doodle-svg swirl blurred" viewBox="0 0 100 100">
-              <path d="M20 80 C20 20, 80 20, 80 50 C80 80, 50 80, 50 50" />
-            </svg>
-            <svg class="doodle-svg box secondary" viewBox="0 0 100 100">
-              <rect x="20" y="20" width="60" height="60" rx="5" />
-            </svg>
-
-            <svg class="doodle-svg spark secondary" viewBox="0 0 100 100">
-              <path d="M50 20 L50 35 M80 50 L65 50 M50 80 L50 65 M20 50 L35 50" />
-            </svg>
-            <svg class="doodle-svg cross secondary" viewBox="0 0 100 100">
-              <path d="M30 30 L70 70 M70 30 L30 70" />
-            </svg>
-            <svg class="doodle-svg diamond blurred" viewBox="0 0 100 100">
-              <path d="M50 10 L90 50 L50 90 L10 50 Z" />
-            </svg>
-          </div>
+        <div class="hero-doodles">
+          <svg class="doodle-svg star primary" viewBox="0 0 100 100">
+            <path d="M50 5 L60 40 L95 50 L60 60 L50 95 L40 60 L5 50 L40 40 Z" />
+          </svg>
+          <svg class="doodle-svg triangle blurred" viewBox="0 0 100 100">
+            <path d="M50 15 L90 85 L10 85 Z" />
+          </svg>
+          <svg class="doodle-svg plus secondary" viewBox="0 0 100 100">
+            <path d="M20 50 L80 50 M50 20 L50 80" />
+          </svg>
+          <svg class="doodle-svg circle secondary" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" />
+          </svg>
+          <svg class="doodle-svg zigzag primary" viewBox="0 0 100 100">
+            <path d="M10 50 L30 20 L50 80 L70 20 L90 50" />
+          </svg>
+          <svg class="doodle-svg plane primary" viewBox="0 0 100 60">
+            <path d="M0 30 L100 30 M70 10 L100 30 L70 50" />
+          </svg>
+          <svg class="doodle-svg wave blurred" viewBox="0 0 120 60">
+            <path d="M0 30 C20 10, 40 50, 60 30 C80 10, 100 50, 120 30" />
+          </svg>
+          <svg class="doodle-svg swirl blurred" viewBox="0 0 100 100">
+            <path d="M20 80 C20 20, 80 20, 80 50 C80 80, 50 80, 50 50" />
+          </svg>
+          <svg class="doodle-svg box secondary" viewBox="0 0 100 100">
+            <rect x="20" y="20" width="60" height="60" rx="5" />
+          </svg>
+          <svg class="doodle-svg spark secondary" viewBox="0 0 100 100">
+            <path d="M50 20 L50 35 M80 50 L65 50 M50 80 L50 65 M20 50 L35 50" />
+          </svg>
+          <svg class="doodle-svg cross secondary" viewBox="0 0 100 100">
+            <path d="M30 30 L70 70 M70 30 L30 70" />
+          </svg>
+          <svg class="doodle-svg diamond blurred" viewBox="0 0 100 100">
+            <path d="M50 10 L90 50 L50 90 L10 50 Z" />
+          </svg>
         </div>
-
-        <!-- IMAGE -->
         <img src="./image.PNG" alt="Kartik Dubey" class="hero-img" />
       </div>
 
     </div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about" class="about-section">
     <div class="about-container">
 
@@ -147,21 +174,15 @@
 
         <div class="about-text">
           <p>
-            I’m a <strong>final-year B.Tech Computer Engineering student (2026 batch)</strong> focused on building
-            scalable backend systems and real-time applications.
-            I enjoy designing efficient architectures, working with <strong>WebSockets</strong>,
-            automation systems, and solving real-world problems through code.
+            Final-year <strong>B.Tech Computer Engineering student (2026)</strong> building
+            scalable backend systems, real-time applications, and automation tools.
           </p>
-
           <p>
-            My projects reflect a strong interest in <strong>system design</strong>, performance optimization,
-            and practical AI integrations. Beyond academics, I actively explore production-level concepts
-            and continuously refine my engineering fundamentals.
+            Passionate about <strong>system design</strong>, WebSockets, and practical AI —
+            with a focus on production-ready, efficient code.
           </p>
-
           <p class="hiring-status">
-            I’m currently <strong>open to internship and entry-level opportunities</strong> where I can
-            contribute meaningfully while growing as a backend engineer.
+            Currently <strong>open to internship &amp; entry-level roles</strong> in backend engineering.
           </p>
         </div>
 
@@ -171,7 +192,7 @@
             <label class="stat-label">Expected Graduation</label>
           </div>
           <div class="stat-item">
-            <span class="stat-value">Backend & API</span>
+            <span class="stat-value">Backend &amp; API</span>
             <label class="stat-label">Focus Area</label>
           </div>
           <div class="stat-item highlight">
@@ -184,7 +205,7 @@
     </div>
   </section>
 
-  <!-- SKILL -->
+  <!-- SKILLS -->
   <section id="skills" class="skills-section">
     <h2 class="section-title">Technical Expertise</h2>
 
@@ -200,17 +221,16 @@
 
       <div class="skill-card core-focus">
         <div class="skill-header">
-          <h3>Backend & Architecture</h3>
+          <h3>Backend &amp; Architecture</h3>
         </div>
         <div class="skill-tags">
-          <span>Flask</span><span>WebSockets</span><span>REST APIs</span><span>System Design</span><span>Real-time
-            Logs</span>
+          <span>Flask</span><span>WebSockets</span><span>REST APIs</span><span>System Design</span><span>Real-time Logs</span>
         </div>
       </div>
 
       <div class="skill-card">
         <div class="skill-header">
-          <h3>Automation & AI</h3>
+          <h3>Automation &amp; AI</h3>
         </div>
         <div class="skill-tags">
           <span>Selenium</span><span>OpenCV</span><span>Automation Systems</span><span>Streamlit</span>
@@ -219,7 +239,7 @@
 
       <div class="skill-card">
         <div class="skill-header">
-          <h3>Tools & Environment</h3>
+          <h3>Tools &amp; Environment</h3>
         </div>
         <div class="skill-tags">
           <span>Git</span><span>Linux</span><span>Firebase</span><span>React</span>
@@ -228,6 +248,7 @@
     </div>
   </section>
 
+  <!-- EXPERIENCE -->
   <section id="experience" class="portfolio-section">
     <h2 class="section-title">Professional Experience</h2>
     <div class="experience-wrapper">
@@ -239,7 +260,7 @@
             <h3>Software Development Intern</h3>
             <span class="experience-company">Jawaharlal Nehru Port Authority (JNPA)</span>
           </div>
-          <span class="experience-duration">December 2025-March 2025</span>
+          <span class="experience-duration">December 2025 – March 2025</span>
         </div>
         <ul class="experience-details">
           <li>Designed and developed internal dashboards for real-time data visualization.</li>
@@ -256,7 +277,7 @@
             <h3>Technical Intern</h3>
             <span class="experience-company">Savidha Foundation</span>
           </div>
-          <span class="experience-duration">June 2025 - July 2025</span>
+          <span class="experience-duration">June 2025 – July 2025</span>
         </div>
         <ul class="experience-details">
           <li>Contributed to website development and backend functionality.</li>
@@ -264,99 +285,118 @@
           <li>Performed feature testing to ensure smooth user experience.</li>
         </ul>
       </div>
+
     </div>
   </section>
 
-<!-- ===== PASTE THIS: Replace your old <section id="experience" class="memory-section"> block ===== -->
+  <!-- LEADERSHIP JOURNEY -->
+  <section id="leadership" class="memorylane-section">
+    <h2 class="section-title">My Leadership Journey</h2>
+    <p class="memorylane-subtitle">A timeline of roles I've taken on — from volunteer to chairperson.</p>
 
-<section id="leadership" class="memorylane-section">
-  <h2 class="section-title">My Leadership Journey</h2>
-  <p class="memorylane-subtitle">A timeline of roles I've taken on — from volunteer to chairperson.</p>
+    <div class="memorylane-wrapper">
 
-  <div class="memorylane-wrapper">
+      <!-- LEFT: Sticky Year Nav -->
+      <nav class="memorylane-nav">
+        <a href="#ml-2026" class="ml-year-link active" data-target="ml-2026">2026</a>
+        <a href="#ml-2025" class="ml-year-link" data-target="ml-2025">2025</a>
+        <a href="#ml-2024" class="ml-year-link" data-target="ml-2024">2024</a>
+        <a href="#ml-2023" class="ml-year-link" data-target="ml-2023">2023</a>
+      </nav>
 
-    <!-- LEFT: Sticky Year Nav -->
-    <nav class="memorylane-nav">
-      <a href="#ml-2026" class="ml-year-link active" data-target="ml-2026">2026</a>
-      <a href="#ml-2025" class="ml-year-link" data-target="ml-2025">2025</a>
-      <a href="#ml-2024" class="ml-year-link" data-target="ml-2024">2024</a>
-      <a href="#ml-2022" class="ml-year-link" data-target="ml-2022">2022</a>
-    </nav>
+      <!-- RIGHT: Scrollable entries -->
+      <div class="memorylane-entries">
 
-    <!-- RIGHT: Scrollable entries -->
-    <div class="memorylane-entries">
-
-      <div class="ml-entry" id="ml-2026">
-        <div class="ml-entry-year">2026</div>
-        <div class="ml-entry-body">
-          <div class="ml-entry-text">
-            <span class="ml-badge">CSI PCE</span>
-            <h3>Chairperson</h3>
-            <p>Led the Computer Society of India (CSI PCE) chapter as Chairperson, overseeing technical events, workshops, and a growing community of 200+ student members.</p>
-          </div>
-          <div class="ml-entry-visual">
-            <div class="ml-icon-box">🏆</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ml-entry" id="ml-2025">
-        <div class="ml-entry-year">2025</div>
-        <div class="ml-entry-body">
-          <div class="ml-entry-text">
-            <span class="ml-badge">CSI PCE</span>
-            <h3>Vice Chairperson</h3>
-            <p>Served as Vice Chairperson of CSI PCE, coordinating chapter events, supporting executive decisions, and driving student engagement and outreach initiatives.</p>
-          </div>
-          <div class="ml-entry-visual">
-            <div class="ml-icon-box">📋</div>
+        <!-- 2026 -->
+        <div class="ml-entry" id="ml-2026">
+          <div class="ml-entry-year">2026</div>
+          <div class="ml-entry-body">
+            <span class="ml-dot"></span>
+            <div class="ml-entry-text">
+              <span class="ml-badge">CSI PCE</span>
+              <h3>Chairperson</h3>
+              <p>Led the Computer Society of India (CSI PCE) chapter as Chairperson, overseeing technical events, workshops, and a growing community of 200+ student members.</p>
+            </div>
+            <div class="ml-entry-visual">
+              <div class="ml-icon-box">🏆</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="ml-entry" id="ml-2024">
-        <div class="ml-entry-year">2024</div>
-        <div class="ml-entry-body">
-          <div class="ml-entry-text">
-            <span class="ml-badge">CSI PCE &amp; NSS PCE</span>
-            <h3>Publicity Member &amp; Media Head</h3>
-            <p>Handled branding and publicity for CSI PCE while leading media operations as Media Head of NSS PCE — managing communications, social campaigns, and outreach.</p>
-          </div>
-          <div class="ml-entry-visual">
-            <div class="ml-icon-box">📣</div>
+        <!-- 2025 -->
+        <div class="ml-entry" id="ml-2025">
+          <div class="ml-entry-year">2025</div>
+          <div class="ml-entry-body">
+            <span class="ml-dot"></span>
+            <div class="ml-entry-text">
+              <span class="ml-badge">CSI PCE</span>
+              <h3>Vice Chairperson</h3>
+              <p>Served as Vice Chairperson of CSI PCE, coordinating chapter events, supporting executive decisions, and driving student engagement and outreach initiatives.</p>
+            </div>
+            <div class="ml-entry-visual">
+              <div class="ml-icon-box">📋</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="ml-entry" id="ml-2022">
-        <div class="ml-entry-year">2022</div>
-        <div class="ml-entry-body">
-          <div class="ml-entry-text">
-            <span class="ml-badge">NSS PCE</span>
-            <h3>NSS Volunteer</h3>
-            <p>Began my leadership journey as a volunteer with the National Service Scheme, contributing to community service drives, social awareness campaigns, and on-ground events.</p>
+        <!-- 2024 — two roles, each with own dot -->
+        <div class="ml-entry" id="ml-2024">
+          <div class="ml-entry-year">2024</div>
+
+          <div class="ml-entry-body">
+            <span class="ml-dot"></span>
+            <div class="ml-entry-text">
+              <span class="ml-badge">NSS PCE</span>
+              <h3>Media Head</h3>
+              <p>Led all media operations for NSS PCE — managing communications, social campaigns, content creation, and outreach to amplify community impact.</p>
+            </div>
+            <div class="ml-entry-visual">
+              <div class="ml-icon-box">📸</div>
+            </div>
           </div>
-          <div class="ml-entry-visual">
-            <div class="ml-icon-box">🌱</div>
+
+          <div class="ml-role-divider"></div>
+
+          <div class="ml-entry-body">
+            <span class="ml-dot"></span>
+            <div class="ml-entry-text">
+              <span class="ml-badge">CSI PCE</span>
+              <h3>Publicity Member</h3>
+              <p>Handled branding and publicity for CSI PCE — designing promotional materials, coordinating announcements, and driving event visibility.</p>
+            </div>
+            <div class="ml-entry-visual">
+              <div class="ml-icon-box">📣</div>
+            </div>
           </div>
         </div>
-      </div>
 
-    </div><!-- /memorylane-entries -->
-  </div><!-- /memorylane-wrapper -->
-</section>
+        <!-- 2023 -->
+        <div class="ml-entry" id="ml-2023">
+          <div class="ml-entry-year">2023</div>
+          <div class="ml-entry-body">
+            <span class="ml-dot"></span>
+            <div class="ml-entry-text">
+              <span class="ml-badge">NSS PCE</span>
+              <h3>NSS Volunteer</h3>
+              <p>Began my leadership journey as a volunteer with the National Service Scheme, contributing to community service drives, social awareness campaigns, and on-ground events.</p>
+            </div>
+            <div class="ml-entry-visual">
+              <div class="ml-icon-box">🌱</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /memorylane-entries -->
+    </div><!-- /memorylane-wrapper -->
+  </section>
 
   <!-- PROJECTS -->
   <section id="projects" class="projects-section">
-
     <h2 class="section-title">Projects</h2>
 
     <div class="projects-wrapper">
 
-      <!-- LEFT ARROW -->
-      <button class="project-scroll-btn left" onclick="scrollProjects(-1)">
-        &#10094;
-      </button>
+      <button class="project-scroll-btn left" onclick="scrollProjects(-1)">&#10094;</button>
 
       <div class="projects-container" id="projectsScroll">
 
@@ -366,21 +406,13 @@
             <div class="card-front">
               <h3>JNPA Internship Letter Generator</h3>
               <div class="tech-stack">
-                <span>Python</span>
-                <span>Flask</span>
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>PDF</span>
+                <span>Python</span><span>Flask</span><span>HTML</span><span>CSS</span><span>PDF</span>
               </div>
-              <p>
-                Automated system to generate, preview, and download official internship
-                letters with dynamic student data and proper formatting.
-              </p>
+              <p>Automated system to generate, preview, and download official internship letters with dynamic student data and proper formatting.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
-              <a href="https://github.com/Kartik915d/JNPA-Internship-letter-Generator" target="_blank"
-                class="btn">GitHub Repo</a>
+              <a href="https://github.com/Kartik915d/JNPA-Internship-letter-Generator" target="_blank" class="btn">GitHub Repo</a>
               <a href="https://web-production-8a80.up.railway.app/" target="_blank" class="btn secondary">Live Demo</a>
             </div>
           </div>
@@ -392,15 +424,9 @@
             <div class="card-front">
               <h3>URL–QR Suite</h3>
               <div class="tech-stack">
-                <span>Python</span>
-                <span>Flask</span>
-                <span>HTML</span>
-                <span>CSS</span>
+                <span>Python</span><span>Flask</span><span>HTML</span><span>CSS</span>
               </div>
-              <p>
-                Web utility that shortens URLs and generates QR codes instantly
-                with a clean, user-friendly interface.
-              </p>
+              <p>Web utility that shortens URLs and generates QR codes instantly with a clean, user-friendly interface.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
@@ -416,13 +442,9 @@
             <div class="card-front">
               <h3>Interactive Streamlit Dashboard</h3>
               <div class="tech-stack">
-                <span>Python</span>
-                <span>Streamlit</span>
+                <span>Python</span><span>Streamlit</span>
               </div>
-              <p>
-                Data-driven dashboard built using Streamlit to visualize insights
-                through charts, filters, and real-time updates.
-              </p>
+              <p>Data-driven dashboard built using Streamlit to visualize insights through charts, filters, and real-time updates.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
@@ -437,18 +459,13 @@
             <div class="card-front">
               <h3>Real-Time Log Monitoring System</h3>
               <div class="tech-stack">
-                <span>Python</span>
-                <span>WebSocket</span>
+                <span>Python</span><span>WebSocket</span>
               </div>
-              <p>
-                Scalable log monitoring system inspired by BrowserStack infrastructure,
-                enabling real-time log streaming and live analysis.
-              </p>
+              <p>Scalable log monitoring system inspired by BrowserStack infrastructure, enabling real-time log streaming and live analysis.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
-              <a href="https://github.com/Kartik915d/Log-monitoring-BrowserStack" target="_blank" class="btn">GitHub
-                Repo</a>
+              <a href="https://github.com/Kartik915d/Log-monitoring-BrowserStack" target="_blank" class="btn">GitHub Repo</a>
             </div>
           </div>
         </div>
@@ -459,14 +476,9 @@
             <div class="card-front">
               <h3>RasoiRescue – Food Management Platform</h3>
               <div class="tech-stack">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>PHP</span>
+                <span>HTML</span><span>CSS</span><span>PHP</span>
               </div>
-              <p>
-                Platform focused on reducing food waste by connecting surplus food
-                sources with those in need through a simple web interface.
-              </p>
+              <p>Platform focused on reducing food waste by connecting surplus food sources with those in need through a simple web interface.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
@@ -481,15 +493,9 @@
             <div class="card-front">
               <h3>React Weather App</h3>
               <div class="tech-stack">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>Javascript</span>
-                <span>Shell</span>
+                <span>HTML</span><span>CSS</span><span>Javascript</span><span>Shell</span>
               </div>
-              <p>
-                Responsive weather application built with React that fetches and
-                displays real-time weather data based on user location.
-              </p>
+              <p>Responsive weather application built with React that fetches and displays real-time weather data based on user location.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
@@ -505,15 +511,9 @@
             <div class="card-front">
               <h3>SuperChat – Real-Time Messaging App</h3>
               <div class="tech-stack">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>Javascript</span>
-                <span>Shell</span>
+                <span>HTML</span><span>CSS</span><span>Javascript</span><span>Shell</span>
               </div>
-              <p>
-                Real-time chat application with instant message delivery,
-                user authentication, and modern UI interactions.
-              </p>
+              <p>Real-time chat application with instant message delivery, user authentication, and modern UI interactions.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
@@ -529,38 +529,42 @@
             <div class="card-front">
               <h3>Real-Time Motion Detector</h3>
               <div class="tech-stack">
-                <span>Python</span>
-                <span>OpenCV</span>
+                <span>Python</span><span>OpenCV</span>
               </div>
-              <p>
-                Real-time motion detection system using Python and OpenCV that
-                highlights movement from live webcam video.
-              </p>
+              <p>Real-time motion detection system using Python and OpenCV that highlights movement from live webcam video.</p>
             </div>
             <div class="card-back">
               <h3>Project Links</h3>
-              <a href="https://github.com/Kartik915d/Real-Time-Motion-Detector" target="_blank" class="btn">GitHub
-                Repo</a>
+              <a href="https://github.com/Kartik915d/Real-Time-Motion-Detector" target="_blank" class="btn">GitHub Repo</a>
             </div>
           </div>
         </div>
 
       </div>
 
-      <button class="project-scroll-btn right" onclick="scrollProjects(1)">
-        &#10095;
-      </button>
+      <button class="project-scroll-btn right" onclick="scrollProjects(1)">&#10095;</button>
 
     </div>
+
+    <!-- MOBILE ONLY: swipe hint + dot pagination -->
+    <div class="projects-mobile-hint">
+      <span class="swipe-hint">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Swipe to explore more projects
+      </span>
+      <div class="project-dots" id="projectDots"></div>
+    </div>
+
   </section>
 
   <!-- CONTACT -->
   <section id="contact" class="contact-section">
-
     <h2 class="section-title">Get in Touch</h2>
     <p class="contact-subtitle">
       Have a project, internship opportunity, or just want to connect?
-      I’d love to hear from you.
+      I'd love to hear from you.
     </p>
 
     <div class="contact-grid">
@@ -595,16 +599,13 @@
         <p>Download PDF</p>
       </a>
 
-
-
     </div>
-
   </section>
-
 
   <footer>
     © 2026 Kartik Dubey
   </footer>
+
   <script src="./script.js"></script>
 </body>
 
