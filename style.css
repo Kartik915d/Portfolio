@@ -2,14 +2,14 @@
 
 /* ================= THEME ================= */
 :root {
-  --bg: #192a4b;
-  --card: #020617;
+  --bg: #050505;
+  --card: #111827;
   --text: #e6e8ee;
-  --muted: #9aa4b2;
-  --accent: #416bc6;
-  --doodle: #f97316;
-  --glow: rgba(65, 107, 198, 0.35);
-  --shadow-strong: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --muted: #8a97a8;
+  --accent: #007bff;
+  --doodle: #007bff;
+  --glow: rgba(0, 123, 255, 0.35);
+  --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07);
 }
 
 body.light {
@@ -36,9 +36,9 @@ html {
 
 body {
   background:
-    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 50%, transparent), transparent 50%),
-    radial-gradient(circle at 80% 80%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 55%),
-    radial-gradient(color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 20% 20%, rgba(0, 123, 255, 0.10), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 123, 255, 0.05), transparent 55%),
+    radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     var(--bg);
   background-size: 180% 180%, 180% 180%, 26px 26px, auto;
   animation: bgDrift 18s ease-in-out infinite;
@@ -53,6 +53,18 @@ body {
   50%  { background-position: 100% 40%, 0% 60%,   0 0, center; }
   100% { background-position: 0% 0%,   100% 100%, 0 0, center; }
 }
+
+body.light {
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, #0284c7 50%, transparent), transparent 50%),
+    radial-gradient(circle at 80% 80%, color-mix(in srgb, #0284c7 20%, transparent), transparent 55%),
+    radial-gradient(color-mix(in srgb, #020617 9%, transparent) 1px, transparent 1px),
+    #f8fafc;
+  background-size: 180% 180%, 180% 180%, 26px 26px, auto;
+  animation: bgDrift 18s ease-in-out infinite;
+}
+
+body.light #stars-canvas { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   body { animation: none; }
@@ -83,10 +95,10 @@ img {
   width: 90%;
   max-width: 1100px;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0, 123, 255, 0.2);
   border-radius: 20px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backface-visibility: hidden;
@@ -243,6 +255,7 @@ body.light .switch-thumb {
   background: var(--card);
   padding: 60px;
   border-radius: 18px;
+  border: 1px solid rgba(0, 123, 255, 0.18);
   box-shadow: var(--shadow-strong);
   min-height: 420px;
   max-width: 740px;
@@ -255,7 +268,7 @@ body.light .switch-thumb {
 }
 
 .hero h1 span {
-  background: linear-gradient(90deg, var(--accent), #818cf8);
+  background: linear-gradient(90deg, #007bff, #38bdf8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -516,7 +529,7 @@ body.light .about-image-wrapper img {
   background: var(--card);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.18);
   padding: 40px;
   border-radius: 24px;
   box-shadow: var(--shadow-strong);
@@ -538,10 +551,10 @@ body.light .glass-card {
 }
 
 .stat-item {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 123, 255, 0.06);
   padding: 15px 10px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 123, 255, 0.18);
   border-left: 3px solid var(--accent);
   text-align: center;
 }
@@ -582,7 +595,7 @@ body.light .stat-item {
   background: var(--card);
   padding: 35px;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 123, 255, 0.15);
   box-shadow: var(--shadow-strong);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, filter 0.4s ease;
   position: relative;
@@ -644,9 +657,9 @@ body.light .skill-card {
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 123, 255, 0.08);
   color: var(--muted);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -709,8 +722,9 @@ body.light .skill-tags span {
   inset: 0;
   padding: 28px;
   border-radius: 18px;
-  background: var(--card);
-  box-shadow: var(--shadow-strong);
+  background: #1a2235;
+  border: 1px solid rgba(0, 123, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 123, 255, 0.08);
   backface-visibility: hidden;
 }
 
@@ -851,10 +865,10 @@ body.light .project-scroll-btn {
 }
 
 .experience-card {
-  background: rgba(2, 6, 23, 0.7);
+  background: var(--card);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.15);
   padding: 40px;
   border-radius: 20px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1003,6 +1017,7 @@ body.light .role-tab:not(.active) {
 .contact-card {
   background: var(--card);
   border-radius: 18px;
+  border: 1px solid rgba(0, 123, 255, 0.15);
   padding: 36px 26px;
   text-decoration: none;
   color: var(--text);
@@ -1600,7 +1615,7 @@ footer {
   background: var(--card);
   padding: 28px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.18);
   box-shadow: var(--shadow-strong);
   transition: all 0.35s ease;
 }
@@ -1889,13 +1904,20 @@ body.light .timeline-content {
   width: 130px;
   height: 130px;
   border-radius: 24px;
-  background: var(--card);
+  background: #1a2235;
+  border: 1px solid rgba(0, 123, 255, 0.2);
   box-shadow: var(--shadow-strong);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light .ml-icon-box {
+  background: #ffffff;
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.1);
 }
 
 .ml-entry:hover .ml-icon-box {
