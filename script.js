@@ -103,15 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ================= MEMORY LANE — SCROLL LINE + SPY ================= */
-  /*
-    Two things happen here:
-    1. The ::after pseudo-element on .memorylane-entries grows its
-       height from 0% → 100% as you scroll through the section.
-       This creates the "line drawing itself down" effect.
-    2. Each entry's dot gets .ml-active when it enters the viewport,
-       making it glow. The left year nav also highlights accordingly.
-  */
-
   const entriesContainer = document.querySelector(".memorylane-entries");
   const mlEntries        = document.querySelectorAll(".ml-entry");
   const mlYearLinks      = document.querySelectorAll(".ml-year-link");
@@ -124,44 +115,51 @@ document.addEventListener("DOMContentLoaded", () => {
       const windowH     = window.innerHeight;
       const totalHeight = entriesContainer.offsetHeight;
 
-      // How far the top of the section has traveled past the top of viewport
       const scrolled = Math.max(0, windowH * 0.4 - rect.top);
       const progress = Math.min(1, scrolled / totalHeight);
       const pct      = (progress * 100).toFixed(2);
 
-      // Drive the CSS ::after height via a custom property
       entriesContainer.style.setProperty("--line-progress", pct + "%");
     }
 
-    // We can't directly set ::after height via JS, so use a CSS variable.
-    // The ::after in CSS will read --line-progress.
     window.addEventListener("scroll", updateLine, { passive: true });
-    updateLine(); // run once on load
+    updateLine();
 
     /* ---- 2. DOT GLOW + YEAR NAV SCROLL SPY ---- */
-    const dotObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Glow this entry's dot
-            mlEntries.forEach(e => e.classList.remove("ml-active"));
-            entry.target.classList.add("ml-active");
+    // Use closest-to-viewport-center logic to avoid dual-activation
+    function getActiveEntry() {
+      const center = window.innerHeight / 2;
+      let closest = null;
+      let closestDist = Infinity;
 
-            // Highlight matching year in nav
-            const id = entry.target.id;
-            mlYearLinks.forEach(link => {
-              link.classList.toggle("active", link.dataset.target === id);
-            });
-          }
-        });
-      },
-      {
-        rootMargin: "-30% 0px -55% 0px",
-        threshold: 0
-      }
-    );
+      mlEntries.forEach(entry => {
+        const rect = entry.getBoundingClientRect();
+        const entryCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(entryCenter - center);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = entry;
+        }
+      });
 
-    mlEntries.forEach(entry => dotObserver.observe(entry));
+      return closest;
+    }
+
+    function updateActiveEntry() {
+      const active = getActiveEntry();
+      if (!active) return;
+
+      mlEntries.forEach(e => e.classList.remove("ml-active"));
+      active.classList.add("ml-active");
+
+      const id = active.id;
+      mlYearLinks.forEach(link => {
+        link.classList.toggle("active", link.dataset.target === id);
+      });
+    }
+
+    window.addEventListener("scroll", updateActiveEntry, { passive: true });
+    updateActiveEntry();
 
     /* ---- 3. CLICK YEAR → SMOOTH SCROLL ---- */
     mlYearLinks.forEach(link => {
@@ -173,10 +171,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* ================= PROJECT DOTS (MOBILE) ================= */
+  const projectsScroll = document.getElementById("projectsScroll");
+  const dotsContainer  = document.getElementById("projectDots");
+  const swipeHint      = document.querySelector(".swipe-hint");
+
+  if (projectsScroll && dotsContainer) {
+    const cards = projectsScroll.querySelectorAll(".project-card");
+    const total = cards.length;
+    let hasScrolled = false;
+
+    // Build dots
+    cards.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.className = "project-dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", `Go to project ${i + 1}`);
+      dot.addEventListener("click", () => {
+        cards[i].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    const allDots = dotsContainer.querySelectorAll(".project-dot");
+
+    // Update active dot based on scroll position
+    function updateDots() {
+      const scrollLeft  = projectsScroll.scrollLeft;
+      const cardWidth   = projectsScroll.scrollWidth / total;
+      const activeIndex = Math.round(scrollLeft / cardWidth);
+
+      allDots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === activeIndex);
+      });
+
+      // Hide swipe hint after first scroll
+      if (!hasScrolled && scrollLeft > 10) {
+        hasScrolled = true;
+        if (swipeHint) swipeHint.classList.add("hidden");
+      }
+    }
+
+    projectsScroll.addEventListener("scroll", updateDots, { passive: true });
+    updateDots();
+  }
+
 });
 
 
-/* ================= PROJECT SCROLL ================= */
+/* ================= PROJECT SCROLL BUTTONS ================= */
 function scrollProjects(direction) {
   const container = document.getElementById("projectsScroll");
   if (!container) return;

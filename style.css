@@ -2228,3 +2228,300 @@ body.light .ml-icon-box {
     font-size: 0.95rem;
   }
 }
+
+
+/* ================================================================
+   EXPERIENCE SECTION 
+   ================================================================ */
+
+.portfolio-section {
+  padding: 80px 6%;
+}
+
+/* Reset old styles */
+.experience-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Vertical track line */
+.experience-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--accent) 35%, transparent) 15%,
+    color-mix(in srgb, var(--accent) 35%, transparent) 85%,
+    transparent
+  );
+  border-radius: 2px;
+  z-index: 0;
+}
+
+/* New card layout — override all old card styles */
+.experience-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0 32px;
+  padding: 0 0 56px 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  position: relative;
+  overflow: visible;
+  transform: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Override the group hover dim that old CSS adds */
+.experience-wrapper:hover .experience-card {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.experience-wrapper .experience-card:hover {
+  transform: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* hide old glow div */
+.card-glow { display: none !important; }
+
+/* ---- Left column: numbered dot ---- */
+.exp-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-number {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -1px;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.experience-card:hover .exp-number {
+  background: var(--accent);
+  color: #020617;
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 8px color-mix(in srgb, var(--accent) 15%, transparent),
+    0 0 30px var(--glow);
+  transform: scale(1.08);
+}
+
+/* ---- Right column: content panel ---- */
+.exp-right {
+  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  border-radius: 20px;
+  padding: 36px 40px;
+  box-shadow: var(--shadow-strong);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glowing left accent bar */
+.exp-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 30%, transparent)
+  );
+  border-radius: 20px 0 0 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.experience-card:hover .exp-right::before {
+  opacity: 1;
+}
+
+.experience-card:hover .exp-right {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transform: translateX(8px);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.5),
+    0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+body.light .exp-right {
+  background: #ffffff;
+  border: 1px solid rgba(2, 6, 23, 0.07);
+}
+
+body.light .experience-card:hover .exp-right {
+  box-shadow:
+    0 16px 40px rgba(2, 6, 23, 0.14),
+    0 0 0 1px rgba(2, 132, 199, 0.2);
+}
+
+/* Top meta row */
+.exp-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.exp-title-block h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.exp-company-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.exp-company-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.exp-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.exp-duration::before {
+  content: '📅';
+  font-size: 0.75rem;
+}
+
+body.light .exp-duration {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.07);
+}
+
+/* Subtle divider */
+.exp-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 30%, transparent),
+    transparent
+  );
+  margin: 20px 0;
+  border-radius: 2px;
+}
+
+/* Details list — keep existing styles, just grid them */
+.exp-right .experience-details {
+  display: grid;
+  gap: 10px;
+  animation: none;
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .experience-wrapper::before {
+    left: 24px;
+  }
+
+  .experience-card {
+    grid-template-columns: 52px 1fr;
+    gap: 0 18px;
+    padding-bottom: 36px;
+  }
+
+  .exp-number {
+    width: 48px;
+    height: 48px;
+    font-size: 1.05rem;
+  }
+
+  .exp-right {
+    padding: 24px 20px;
+  }
+
+  .exp-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .experience-card:hover .exp-right {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-card {
+    grid-template-columns: 42px 1fr;
+    gap: 0 12px;
+  }
+
+  .exp-number {
+    width: 40px;
+    height: 40px;
+    font-size: 0.95rem;
+  }
+
+  .exp-right {
+    padding: 18px 14px;
+  }
+}
