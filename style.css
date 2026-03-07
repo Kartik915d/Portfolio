@@ -2525,3 +2525,242 @@ body.light .exp-duration {
     padding: 18px 14px;
   }
 }
+
+/* ================================================================
+   SKILLS SECTION — REDESIGN (append to end of style.css)
+   ================================================================ */
+
+.skills-section {
+  padding: 80px 6%;
+}
+
+/* ---- Grid: equal height cards ---- */
+.skills-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+/* ---- Card base ---- */
+.skill-card {
+  background: var(--card);
+  padding: 32px 36px 36px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 123, 255, 0.12);
+  box-shadow: var(--shadow-strong);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              opacity 0.35s ease,
+              filter 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top gradient bar */
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--accent) 60%, transparent),
+    color-mix(in srgb, var(--accent) 15%, transparent)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 20px 20px 0 0;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+/* Group hover dim */
+.skills-wrapper:hover .skill-card {
+  opacity: 0.45;
+  filter: blur(0.5px);
+}
+
+.skills-wrapper .skill-card:hover {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  transform: translateY(-5px) scale(1.01);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45),
+              0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent),
+              0 0 30px var(--glow);
+  z-index: 10;
+}
+
+body.light .skill-card {
+  background: #ffffff;
+  border: 1px solid rgba(2, 6, 23, 0.06);
+}
+
+body.light .skills-wrapper:hover .skill-card {
+  filter: blur(0.3px);
+}
+
+/* ---- Header row ---- */
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.skill-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -1px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+  background: color-mix(in srgb, var(--accent) 24%, transparent);
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.skill-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  letter-spacing: -0.2px;
+}
+
+/* Remove old ::before bar from h3 */
+.skill-header h3::before {
+  display: none;
+}
+
+.skill-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  padding: 3px 9px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* ---- Tag container ---- */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+}
+
+/* PRIMARY tags — more prominent */
+.skill-tags .tag-primary {
+  padding: 7px 15px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: all 0.25s ease;
+  cursor: default;
+  letter-spacing: 0.1px;
+}
+
+.skill-tags .tag-primary:hover {
+  background: var(--accent);
+  color: #020617;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--glow);
+}
+
+/* SECONDARY tags — understated */
+.skill-tags .tag-secondary {
+  padding: 6px 13px;
+  font-size: 0.79rem;
+  font-weight: 500;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.skill-tags .tag-secondary:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+  transform: translateY(-2px);
+}
+
+body.light .skill-tags .tag-secondary {
+  background: rgba(2, 6, 23, 0.04);
+  border-color: rgba(2, 6, 23, 0.08);
+  color: #475569;
+}
+
+body.light .skill-tags .tag-secondary:hover {
+  background: rgba(2, 132, 199, 0.08);
+  color: var(--accent);
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+body.light .skill-tags .tag-primary:hover {
+  color: #ffffff;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .skills-wrapper {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .skill-card {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  .skills-wrapper:hover .skill-card {
+    opacity: 1;
+    filter: none;
+  }
+
+  .skills-wrapper .skill-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-card {
+    padding: 20px 16px;
+  }
+
+  .skill-tags .tag-primary,
+  .skill-tags .tag-secondary {
+    font-size: 0.76rem;
+    padding: 5px 11px;
+  }
+}
