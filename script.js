@@ -126,13 +126,22 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLine();
 
     /* ---- 2. DOT GLOW + YEAR NAV SCROLL SPY ---- */
-    // Use closest-to-viewport-center logic to avoid dual-activation
+    // Use closest-to-viewport-center logic, with special handling for the last entry
     function getActiveEntry() {
       const center = window.innerHeight / 2;
+      const entries = Array.from(mlEntries);
+      const lastEntry = entries[entries.length - 1];
+
+      // If the last entry has scrolled into view past 70% of the viewport, activate it
+      const lastRect = lastEntry.getBoundingClientRect();
+      if (lastRect.top < window.innerHeight * 0.7) {
+        return lastEntry;
+      }
+
       let closest = null;
       let closestDist = Infinity;
 
-      mlEntries.forEach(entry => {
+      entries.forEach(entry => {
         const rect = entry.getBoundingClientRect();
         const entryCenter = rect.top + rect.height / 2;
         const dist = Math.abs(entryCenter - center);
