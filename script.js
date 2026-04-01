@@ -1,3 +1,7 @@
+/* ================= GLOBAL VARIABLES FOR 3D SPHERE ================= */
+let sphereWireframe = null;
+let spherePoints = null;
+
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ================= THEME TOGGLE ================= */
@@ -12,8 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
       body.classList.toggle("light");
       const isLight = body.classList.contains("light");
       localStorage.setItem("theme", isLight ? "light" : "dark");
+
+      // DYNAMICALLY UPDATE SPHERE COLORS
+      if (sphereWireframe && spherePoints) {
+        sphereWireframe.material.color.setHex(isLight ? 0x0284c7 : 0x00f3ff);
+        sphereWireframe.material.opacity = isLight ? 0.4 : 0.2;
+        spherePoints.material.color.setHex(isLight ? 0x6d28d9 : 0xb500ff);
+      }
     });
   }
+
+  /* ================= INIT HERO SPHERE ================= */
+  initHeroSphere();
 
   /* ================= NAVBAR SCROLL ================= */
   const nav = document.querySelector(".navbar");
@@ -126,13 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLine();
 
     /* ---- 2. DOT GLOW + YEAR NAV SCROLL SPY ---- */
-    // Use closest-to-viewport-center logic, with special handling for the last entry
     function getActiveEntry() {
       const center = window.innerHeight / 2;
       const entries = Array.from(mlEntries);
       const lastEntry = entries[entries.length - 1];
 
-      // If the last entry has scrolled into view past 70% of the viewport, activate it
       const lastRect = lastEntry.getBoundingClientRect();
       if (lastRect.top < window.innerHeight * 0.7) {
         return lastEntry;
@@ -266,15 +278,14 @@ function showRole(event, org, role) {
   if (durationLabel && durations[role]) {
     durationLabel.innerText = durations[role];
   }
-  
 }
 
+/* ================= THREE.JS SPHERE INITIALIZATION ================= */
 function initHeroSphere() {
   const canvas = document.getElementById('hero-sphere');
   if (!canvas || typeof THREE === 'undefined') return;
 
   const container = canvas.parentElement;
-
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(
@@ -296,19 +307,26 @@ function initHeroSphere() {
 
   const geometry = new THREE.IcosahedronGeometry(2.2, 3);
 
-  const wireframe = new THREE.LineSegments(
+  // Check initial theme state
+  const isLight = document.body.classList.contains("light");
+  const wireColor = isLight ? 0x0284c7 : 0x00f3ff;
+  const dotColor = isLight ? 0x6d28d9 : 0xb500ff;
+  const wireOpacity = isLight ? 0.4 : 0.2;
+
+  // Initialize global references for the theme toggle to access
+  sphereWireframe = new THREE.LineSegments(
     new THREE.WireframeGeometry(geometry),
     new THREE.LineBasicMaterial({
-      color: 0x00f3ff,
+      color: wireColor,
       transparent: true,
-      opacity: 0.2
+      opacity: wireOpacity
     })
   );
 
-  const points = new THREE.Points(
+  spherePoints = new THREE.Points(
     geometry,
     new THREE.PointsMaterial({
-      color: 0xb500ff,
+      color: dotColor,
       size: 0.05,
       transparent: true,
       opacity: 0.8
@@ -316,9 +334,8 @@ function initHeroSphere() {
   );
 
   const group = new THREE.Group();
-  group.add(wireframe);
-  group.add(points);
-
+  group.add(sphereWireframe);
+  group.add(spherePoints);
   scene.add(group);
 
   let mouseX = 0;
@@ -353,12 +370,3 @@ function initHeroSphere() {
     renderer.setSize(width, height);
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* ================= THEME TOGGLE ================= */
-  const toggle = document.getElementById("themeToggle");
-  const body = document.body;
-  initHeroSphere();
-
-});
