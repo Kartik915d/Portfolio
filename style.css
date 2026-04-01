@@ -1999,8 +1999,9 @@ body.light .timeline-content {
 /* ---- DOT: one per ml-entry-body (one per role) ---- */
 .ml-dot {
   position: absolute;
-  left: -36px;
-  top: 10px;
+  left: -36px;   /* line is at -28px on entries container; dot is 16px wide → center at -28 - 8 = -36px */
+  top: 50%;
+  transform: translateY(-50%);
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -2043,6 +2044,7 @@ body.light .timeline-content {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
+  position: relative; /* needed so .ml-dot positions against this element */
 }
 
 .ml-entry-text {
@@ -2196,7 +2198,8 @@ body.light .ml-icon-box {
   /* ---- Mobile dots ---- */
   .ml-dot {
     left: -36px;
-    top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 14px;
     height: 14px;
   }
@@ -2763,4 +2766,22 @@ body.light .skill-tags .tag-primary:hover {
     font-size: 0.76rem;
     padding: 5px 11px;
   }
+}
+
+#hero-sphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Behind image but above bg */
+  pointer-events: none;
+}
+
+/* Ensure layering */
+.hero-bg {
+  z-index: 1;
+}
+
+.hero-img {
+  z-index: 5;
 }

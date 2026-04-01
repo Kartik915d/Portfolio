@@ -268,3 +268,97 @@ function showRole(event, org, role) {
   }
   
 }
+
+function initHeroSphere() {
+  const canvas = document.getElementById('hero-sphere');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const container = canvas.parentElement;
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(
+    65,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 5;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+    antialias: true
+  });
+
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const geometry = new THREE.IcosahedronGeometry(2.2, 3);
+
+  const wireframe = new THREE.LineSegments(
+    new THREE.WireframeGeometry(geometry),
+    new THREE.LineBasicMaterial({
+      color: 0x00f3ff,
+      transparent: true,
+      opacity: 0.2
+    })
+  );
+
+  const points = new THREE.Points(
+    geometry,
+    new THREE.PointsMaterial({
+      color: 0xb500ff,
+      size: 0.05,
+      transparent: true,
+      opacity: 0.8
+    })
+  );
+
+  const group = new THREE.Group();
+  group.add(wireframe);
+  group.add(points);
+
+  scene.add(group);
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  container.addEventListener("mousemove", (e) => {
+    const rect = container.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left - rect.width / 2);
+    mouseY = (e.clientY - rect.top - rect.height / 2);
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    group.rotation.y = 0.2;
+    group.rotation.x = 0.1;
+
+    group.rotation.y += mouseX * 0.0005;
+    group.rotation.x += mouseY * 0.0005;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  window.addEventListener("resize", () => {
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ================= THEME TOGGLE ================= */
+  const toggle = document.getElementById("themeToggle");
+  const body = document.body;
+  initHeroSphere();
+
+});
