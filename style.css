@@ -144,7 +144,6 @@ body.light .navbar {
 }
 
 body.light .nav-links {
-  /* background: rgba(0, 0, 0, 0.03); */
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
@@ -1276,26 +1275,33 @@ footer {
     padding: 50px 5%;
   }
 
-  /* ---- Navbar ---- */
+  /* ---- Navbar (Consolidated Fixes) ---- */
   .nav-links {
     display: none;
   }
 
   .navbar {
-    width: calc(100% - 16px);
+    left: 0;
+    transform: none; 
+    width: 94%; 
     top: 10px;
+    margin: 0 3%; 
+    max-width: 100vw; 
+    box-sizing: border-box; 
   }
 
   .nav-inner {
-    padding: 10px 12px;
+    padding: 10px 16px;
   }
 
 
-  /* ---- Hero ---- */
+  /* ---- Hero (Jump Fix Applied Here) ---- */
   .hero {
     padding: 90px 16px 40px;
-    min-height: auto;
+    min-height: 100dvh;
     align-items: center;
+    display: flex;
+    justify-content: center;  
   }
 
   .hero-wrapper {
@@ -1332,7 +1338,6 @@ footer {
   }
 
   .hero-bg {
-    /* Ensures the glow effect stays centered behind the image */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -1348,7 +1353,12 @@ footer {
     padding: 28px 20px;
     width: 100%;
     max-width: 100%;
-    min-height: unset;
+    min-height: 400px;
+    /* Added Flex properties to lock items in place vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background: var(--card);
     border-radius: 20px;
     box-shadow: var(--shadow-strong);
@@ -1364,10 +1374,14 @@ footer {
     margin-bottom: 8px;
   }
 
+  /* Fixed subtitle height so the typing effect never collapses the layout */
   .subtitle {
     font-size: 1rem;
-    min-height: auto;
+    min-height: 3.5em; /* Allows for 2 lines safely */
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .availability-badge {
@@ -1683,42 +1697,6 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
-
-@media (max-width: 768px) {
-  .nav-content {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 72%;
-    max-width: 300px;
-    height: 100vh;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 60px 32px 48px;
-    background: rgba(8, 12, 22, 0.97);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border-left: 1px solid rgba(0, 123, 255, 0.25);
-    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 10000;
-  }
-
-  .nav-content.active { right: 0; }
-
-  .nav-links {
-    flex-direction: column;
-    background: transparent;
-    border: none;
-    gap: 0;
-    padding: 0;
-    width: 100%;
-  }
-
-  .mobile-menu-toggle { display: flex; }
-}
 
 /* ================= LEADERSHIP TIMELINE ================= */
 
@@ -1733,9 +1711,6 @@ footer {
   padding: 100px 0;
 }
 
-/* .timeline-item {
-  margin-bottom: 180px;
-} */
 
 /* Vertical line */
 .timeline::before {
@@ -1886,10 +1861,6 @@ body.light .timeline-content {
   }
 }
 
-/* ================= MEMORY LANE (Leadership) =================
-   REPLACE everything from line 1699 to end of file in style.css
-   ============================================================ */
-
 /* ===== MEMORY LANE SECTION ===== */
 .memorylane-section {
   padding: 100px 6%;
@@ -1950,7 +1921,7 @@ body.light .timeline-content {
   background: color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
-/* ===== RIGHT SCROLL ENTRIES (desktop: has the vertical line) ===== */
+/* ===== RIGHT SCROLL ENTRIES ===== */
 .memorylane-entries {
   flex: 1;
   display: flex;
@@ -1959,7 +1930,7 @@ body.light .timeline-content {
   position: relative;
 }
 
-/* ---- THE VERTICAL TRACK LINE (desktop only) ---- */
+/* ---- THE VERTICAL TRACK LINE ---- */
 .memorylane-entries::before {
   content: '';
   position: absolute;
@@ -1971,7 +1942,7 @@ body.light .timeline-content {
   border-radius: 2px;
 }
 
-/* ---- THE ANIMATED PROGRESS LINE that fills down as you scroll ---- */
+/* ---- THE ANIMATED PROGRESS LINE ---- */
 .memorylane-entries::after {
   content: '';
   position: absolute;
@@ -1997,10 +1968,10 @@ body.light .timeline-content {
   border-bottom: none;
 }
 
-/* ---- DOT: one per ml-entry-body (one per role) ---- */
+/* ---- DOT ---- */
 .ml-dot {
   position: absolute;
-  left: -36px;   /* line is at -28px on entries container; dot is 16px wide → center at -28 - 8 = -36px */
+  left: -36px;
   top: 50%;
   transform: translateY(-50%);
   width: 16px;
@@ -2020,7 +1991,7 @@ body.light .timeline-content {
               0 0 14px var(--glow);
 }
 
-/* ---- Divider between two roles in same year ---- */
+/* ---- Divider ---- */
 .ml-role-divider {
   width: 100%;
   height: 1px;
@@ -2039,13 +2010,13 @@ body.light .timeline-content {
   margin-bottom: 24px;
 }
 
-/* ===== ENTRY BODY: text left, visual right ===== */
+/* ===== ENTRY BODY ===== */
 .ml-entry-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  position: relative; /* needed so .ml-dot positions against this element */
+  position: relative;
 }
 
 .ml-entry-text {
@@ -2111,9 +2082,6 @@ body.light .ml-icon-box {
 }
 
 
-/* =====================================================
-   TABLET (769px – 1024px)
-   ===================================================== */
 @media (max-width: 1024px) {
   .memorylane-wrapper {
     gap: 30px;
@@ -2128,27 +2096,17 @@ body.light .ml-icon-box {
   }
 }
 
-
-/* =====================================================
-   MOBILE (≤768px)
-   The layout becomes a single vertical column.
-   The LEFT nav becomes horizontal pills at the top.
-   The animated line runs THROUGH the center of
-   each entry dot — just like GolfGameBook on mobile.
-   ===================================================== */
 @media (max-width: 768px) {
 
-  /* Stack vertically */
   .memorylane-wrapper {
     flex-direction: column;
     gap: 0;
   }
 
-  /* ---- Year pills become a horizontal scrollable row ---- */
   .memorylane-nav {
     position: static;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     overflow-x: auto;
     gap: 8px;
     margin-bottom: 40px;
@@ -2170,14 +2128,12 @@ body.light .ml-icon-box {
     border-bottom-color: var(--accent);
   }
 
-  /* ---- Remove the desktop ::before track line ---- */
   .memorylane-entries::before {
     display: none;
   }
 
-  /* ---- Mobile progress line: centered, runs top→bottom ---- */
   .memorylane-entries {
-    padding-left: 36px;  /* space for the line on the left */
+    padding-left: 36px; 
   }
 
   .memorylane-entries::before {
@@ -2193,10 +2149,9 @@ body.light .ml-icon-box {
   }
 
   .memorylane-entries::after {
-    left: 7px;  /* same x as the track line */
+    left: 7px; 
   }
 
-  /* ---- Mobile dots ---- */
   .ml-dot {
     left: -36px;
     top: 50%;
@@ -2205,7 +2160,6 @@ body.light .ml-icon-box {
     height: 14px;
   }
 
-  /* ---- Entry layout: stack vertically ---- */
   .ml-entry {
     padding: 40px 0;
   }
@@ -2242,7 +2196,6 @@ body.light .ml-icon-box {
   padding: 80px 6%;
 }
 
-/* Reset old styles */
 .experience-wrapper {
   display: flex;
   flex-direction: column;
@@ -2252,7 +2205,6 @@ body.light .ml-icon-box {
   position: relative;
 }
 
-/* Vertical track line */
 .experience-wrapper::before {
   content: '';
   position: absolute;
@@ -2271,7 +2223,6 @@ body.light .ml-icon-box {
   z-index: 0;
 }
 
-/* New card layout — override all old card styles */
 .experience-card {
   display: grid;
   grid-template-columns: 80px 1fr;
@@ -2289,7 +2240,6 @@ body.light .ml-icon-box {
   filter: none !important;
 }
 
-/* Override the group hover dim that old CSS adds */
 .experience-wrapper:hover .experience-card {
   opacity: 1 !important;
   filter: none !important;
@@ -2300,10 +2250,8 @@ body.light .ml-icon-box {
   box-shadow: none !important;
 }
 
-/* hide old glow div */
 .card-glow { display: none !important; }
 
-/* ---- Left column: numbered dot ---- */
 .exp-left {
   display: flex;
   flex-direction: column;
@@ -2340,7 +2288,6 @@ body.light .ml-icon-box {
   transform: scale(1.08);
 }
 
-/* ---- Right column: content panel ---- */
 .exp-right {
   background: var(--card);
   border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
@@ -2352,7 +2299,6 @@ body.light .ml-icon-box {
   overflow: hidden;
 }
 
-/* Glowing left accent bar */
 .exp-right::before {
   content: '';
   position: absolute;
@@ -2393,7 +2339,6 @@ body.light .experience-card:hover .exp-right {
     0 0 0 1px rgba(2, 132, 199, 0.2);
 }
 
-/* Top meta row */
 .exp-meta {
   display: flex;
   align-items: flex-start;
@@ -2459,7 +2404,6 @@ body.light .exp-duration {
   border-color: rgba(0, 0, 0, 0.07);
 }
 
-/* Subtle divider */
 .exp-divider {
   width: 100%;
   height: 1px;
@@ -2472,16 +2416,12 @@ body.light .exp-duration {
   border-radius: 2px;
 }
 
-/* Details list — keep existing styles, just grid them */
 .exp-right .experience-details {
   display: grid;
   gap: 10px;
   animation: none;
 }
 
-/* ----------------------------------------------------------------
-   RESPONSIVE
-   ---------------------------------------------------------------- */
 @media (max-width: 768px) {
   .experience-wrapper::before {
     left: 24px;
@@ -2531,14 +2471,13 @@ body.light .exp-duration {
 }
 
 /* ================================================================
-   SKILLS SECTION — REDESIGN (append to end of style.css)
+   SKILLS SECTION
    ================================================================ */
 
 .skills-section {
   padding: 80px 6%;
 }
 
-/* ---- Grid: equal height cards ---- */
 .skills-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2548,7 +2487,6 @@ body.light .exp-duration {
   align-items: stretch;
 }
 
-/* ---- Card base ---- */
 .skill-card {
   background: var(--card);
   padding: 32px 36px 36px;
@@ -2567,7 +2505,6 @@ body.light .exp-duration {
   overflow: hidden;
 }
 
-/* Subtle top gradient bar */
 .skill-card::before {
   content: '';
   position: absolute;
@@ -2588,7 +2525,6 @@ body.light .exp-duration {
   opacity: 1;
 }
 
-/* Group hover dim */
 .skills-wrapper:hover .skill-card {
   opacity: 0.45;
   filter: blur(0.5px);
@@ -2614,7 +2550,6 @@ body.light .skills-wrapper:hover .skill-card {
   filter: blur(0.3px);
 }
 
-/* ---- Header row ---- */
 .skill-header {
   display: flex;
   align-items: center;
@@ -2653,7 +2588,6 @@ body.light .skills-wrapper:hover .skill-card {
   letter-spacing: -0.2px;
 }
 
-/* Remove old ::before bar from h3 */
 .skill-header h3::before {
   display: none;
 }
@@ -2670,7 +2604,6 @@ body.light .skills-wrapper:hover .skill-card {
   flex-shrink: 0;
 }
 
-/* ---- Tag container ---- */
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
@@ -2678,7 +2611,6 @@ body.light .skills-wrapper:hover .skill-card {
   align-content: flex-start;
 }
 
-/* PRIMARY tags — more prominent */
 .skill-tags .tag-primary {
   padding: 7px 15px;
   font-size: 0.82rem;
@@ -2699,7 +2631,6 @@ body.light .skills-wrapper:hover .skill-card {
   box-shadow: 0 6px 18px var(--glow);
 }
 
-/* SECONDARY tags — understated */
 .skill-tags .tag-secondary {
   padding: 6px 13px;
   font-size: 0.79rem;
@@ -2735,7 +2666,6 @@ body.light .skill-tags .tag-primary:hover {
   color: #ffffff;
 }
 
-/* ---- Responsive ---- */
 @media (max-width: 768px) {
   .skills-wrapper {
     grid-template-columns: 1fr;
@@ -2774,38 +2704,14 @@ body.light .skill-tags .tag-primary:hover {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 2; /* Behind image but above bg */
+  z-index: 2;
   pointer-events: none;
 }
 
-/* Ensure layering */
 .hero-bg {
   z-index: 1;
 }
 
 .hero-img {
   z-index: 5;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    /* 1. Reset the centering transform that causes offset issues */
-    left: 0;
-    transform: none; 
-    
-    /* 2. Use a safe width and center it with margins instead */
-    width: 94%; 
-    margin: 0 3%; 
-    
-    /* 3. Keep it from being too wide */
-    max-width: 100vw; 
-    
-    /* 4. Ensure no horizontal overflow */
-    box-sizing: border-box; 
-  }
-
-  .nav-inner {
-    /* 5. Reduce padding so the logo and hamburger don't hit the edges */
-    padding: 10px 16px;
-  }
 }
