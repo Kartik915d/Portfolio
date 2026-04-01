@@ -92,7 +92,7 @@ img {
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
+  width: 92%;
   max-width: 1100px;
   z-index: 9999;
   background: rgba(17, 24, 39, 0.85);
@@ -2785,4 +2785,27 @@ body.light .skill-tags .tag-primary:hover {
 
 .hero-img {
   z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    /* 1. Reset the centering transform that causes offset issues */
+    left: 0;
+    transform: none; 
+    
+    /* 2. Use a safe width and center it with margins instead */
+    width: 94%; 
+    margin: 0 3%; 
+    
+    /* 3. Keep it from being too wide */
+    max-width: 100vw; 
+    
+    /* 4. Ensure no horizontal overflow */
+    box-sizing: border-box; 
+  }
+
+  .nav-inner {
+    /* 5. Reduce padding so the logo and hamburger don't hit the edges */
+    padding: 10px 16px;
+  }
 }
