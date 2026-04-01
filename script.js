@@ -266,4 +266,5 @@ function showRole(event, org, role) {
   if (durationLabel && durations[role]) {
     durationLabel.innerText = durations[role];
   }
+  
 }
