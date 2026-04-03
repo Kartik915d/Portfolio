@@ -1,0 +1,218 @@
+/* ================= HERO ================= */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 120px;
+}
+
+.hero-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-content {
+  background: var(--card);
+  padding: 60px;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 123, 255, 0.18);
+  box-shadow: var(--shadow-strong);
+  min-height: 420px;
+  max-width: 740px;
+  width: 100%;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #007bff, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 20px;
+  min-height: 1.8em;
+}
+
+.availability-badge {
+  display: inline-block;
+  margin: 12px 0 20px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.12);
+  border-radius: 999px;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+/* ================= HERO VISUAL ================= */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.hero-bg {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  background: radial-gradient(circle at center, var(--accent), transparent 70%);
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0.3;
+  filter: blur(25px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: -25px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent 70%);
+  filter: blur(35px);
+  z-index: -1;
+}
+
+.hero-visual:hover .hero-bg {
+  opacity: 0.7;
+  transform: scale(1.15) rotate(10deg);
+  box-shadow: 0 0 60px var(--glow);
+}
+
+.hero-img {
+  position: relative;
+  width: 85%;
+  height: 85%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 5;
+  border: 6px solid var(--bg);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-visual:hover .hero-img {
+  transform: scale(1.08);
+}
+
+/* 3D Canvas */
+#hero-sphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* z-index overrides for stacking */
+.hero-bg { z-index: 1; }
+.hero-img { z-index: 5; }
+
+/* ================= DOODLES ================= */
+.hero-doodles {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.doodle-svg {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  fill: none;
+  stroke: #416bc6;
+  stroke-width: 2.2;
+  opacity: 0;
+  transform: translate(0, 0) scale(0) rotate(0deg);
+  transition: all 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  filter: drop-shadow(0 0 5px var(--glow));
+}
+
+body.light .doodle-svg {
+  stroke: var(--accent);
+}
+
+/* Hover burst positions */
+.hero-visual:hover .doodle-svg.circle {
+  opacity: 0.7;
+  transform: translate(-170px, -140px) scale(1.2) rotate(-25deg);
+  transition-delay: 0.05s;
+  --tx: -170px; --ty: -140px; --sc: 1.2; --rot: -25deg;
+}
+
+.hero-visual:hover .doodle-svg.wave {
+  opacity: 0.7;
+  transform: translate(170px, -110px) scale(1.1) rotate(15deg);
+  transition-delay: 0.15s;
+  --tx: 170px; --ty: -110px; --sc: 1.1; --rot: 15deg;
+}
+
+.hero-visual:hover .doodle-svg.star {
+  opacity: 0.7;
+  transform: translate(-160px, 130px) scale(1.3) rotate(35deg);
+  transition-delay: 0.1s;
+  --tx: -160px; --ty: 130px; --sc: 1.3; --rot: 35deg;
+}
+
+.hero-visual:hover .doodle-svg.plane {
+  opacity: 0.7;
+  transform: translate(180px, 150px) scale(1.2) rotate(-15deg);
+  transition-delay: 0.2s;
+  --tx: 180px; --ty: 150px; --sc: 1.2; --rot: -15deg;
+}
+
+.hero-visual:hover .doodle-svg.triangle {
+  opacity: 0.6;
+  transform: translate(-40px, -190px) scale(0.9) rotate(10deg);
+  transition-delay: 0.25s;
+  --tx: -40px; --ty: -190px; --sc: 0.9; --rot: 10deg;
+}
+
+.hero-visual:hover .doodle-svg.cross {
+  opacity: 0.6;
+  transform: translate(210px, 20px) scale(0.8) rotate(45deg);
+  transition-delay: 0.08s;
+  --tx: 210px; --ty: 20px; --sc: 0.8; --rot: 45deg;
+}
+
+.hero-visual:hover .doodle-svg.swirl {
+  opacity: 0.6;
+  transform: translate(-200px, 10px) scale(1) rotate(-40deg);
+  transition-delay: 0.18s;
+  --tx: -200px; --ty: 10px; --sc: 1; --rot: -40deg;
+}
+
+@keyframes doodleWobble {
+  0%   { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(var(--sc)); }
+  100% { transform: translate(calc(var(--tx) + 10px), calc(var(--ty) - 10px)) rotate(calc(var(--rot) + 5deg)) scale(var(--sc)); }
+}
+
+.hero-visual:hover .doodle-svg {
+  animation: doodleWobble 3s ease-in-out infinite alternate;
+  animation-delay: 0.7s;
+}

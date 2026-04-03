@@ -1,0 +1,70 @@
+/* ================= BASE ================= */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 123, 255, 0.10), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 123, 255, 0.05), transparent 55%),
+    radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    var(--bg);
+  background-size: 180% 180%, 180% 180%, 26px 26px, auto;
+  animation: bgDrift 18s ease-in-out infinite;
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+@keyframes bgDrift {
+  0%   { background-position: 0% 0%,   100% 100%, 0 0, center; }
+  50%  { background-position: 100% 40%, 0% 60%,   0 0, center; }
+  100% { background-position: 0% 0%,   100% 100%, 0 0, center; }
+}
+
+body.light {
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, #0284c7 50%, transparent), transparent 50%),
+    radial-gradient(circle at 80% 80%, color-mix(in srgb, #0284c7 20%, transparent), transparent 55%),
+    radial-gradient(color-mix(in srgb, #020617 9%, transparent) 1px, transparent 1px),
+    #f8fafc;
+  background-size: 180% 180%, 180% 180%, 26px 26px, auto;
+  animation: bgDrift 18s ease-in-out infinite;
+}
+
+body.light #stars-canvas { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+}
+
+section {
+  padding: 80px 10%;
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ================= FLOAT ANIMATION ================= */
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
